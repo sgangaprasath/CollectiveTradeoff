@@ -1,0 +1,6 @@
+/LaTeX/*.aux
+/LaTeX/*.fls
+/LaTeX/*.out
+/LaTeX/*.log
+/LaTeX/*.gz
+/LaTeX/*.fdb_latexmk
