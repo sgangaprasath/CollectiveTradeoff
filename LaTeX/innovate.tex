@@ -74,6 +74,7 @@ citecolor   = greenish %Colour of citations
 \def\th{\hat{\mathbf{t}}}
 \def\ph{\hat{\mathbf{p}}}
 \def\nh{\hat{\mathbf{n}}}
+\def\yd{\dot{y}}
 \def\ite{\text{ite}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
@@ -86,7 +87,8 @@ citecolor   = greenish %Colour of citations
 }
 
 \begin{document}
-\title{Influence of innate behavior on the dynamics of innovation in foraging}
+% \title{Influence of innate behavior on the dynamics of innovation in foraging}
+\title{Dynamics of innovation along foraged trajectories}
 \author{S Ganga Prasath}
 %\email{sgangaprasath@iitm.ac.in}
 %\affiliation{Department of Applied Mechanics, Indian Institute of Technology Madras, Chennai TN 632406.}
@@ -200,5 +202,79 @@ to reflect the error that accompanies measurements usually. The solution dynamic
 in Fig.~\ref{fig:schm1}$(c)$. We call this line-following behavior as a policy
 $\pi_\ite(\r, \phi): $
 which denotes the agent's innate behavior to follow pheromone trails.
+
+\section{Ornstein-Uhlenbeck process}
+
+Let us consider an agent whose orientation $\ph = ( \cos \theta, \sin \theta)$ wants to relax to a
+neutral orientation with stochasticity associated with estimation error. The dynamics of the orientation
+can be written as a stochastic differential equation given by
+\begin{align}
+    \dot{\theta}(t) =& \ - \alpha \theta(t) + \sqrt{2 D} \eta(t), \\
+    \langle \eta(t) \eta(0) \rangle =& \ \delta(t).
+\end{align}
+This is the evolution of the famous Ornstein-Uhlenbeck process which has been extremely well studied
+and the evolution of the probability density can be solved exactly. The Fokker-Plack equation for
+its dynamics which provides the probability of a given state $\theta(t)$ i.e. $p(\theta, t)$, is given by
+\[
+    \frac{\partial p}{\partial t} = \alpha \frac{\partial(p \theta)}{\partial \theta }
+    + D \frac{\partial^2 p}{\partial x^2}
+\]
+The dynamics of the angle relaxes to equilibrium angle $\theta = 0$ in the absence of fluctuations.
+The evolution of the mean is $\dot{h}(t) = - \alpha h(t)$ where $h(t) = \langle \theta(t) \rangle$
+while the co-variance dynamics is given by $\dot{\zeta}(t) = -2\alpha \zeta(t) + 2D$ with
+$\zeta = \langle (\theta(t) - h(t))^2 \rangle = \langle \theta^2(t) \rangle - h(t)^2$.
+
+The position of the agent evolves as $\dot{\r}(t) = v_o \ph(t)$. Under the assumption that the angle
+is small, we can write $\dot{\r}(t) = v_o (1, \theta)$. Thus we have $\yd (t) = v_o \theta$ which can
+be used to rewrite the orientation equation as
+\begin{align}
+    \ddot{y}(t) =& \ - \alpha \yd (t) + v_o\sqrt{2 D} \eta(t).
+\end{align}
+This second order equation needs to boundary condition. We require $y(0) = 0$ and $\yd (0) = 0$ which
+comes from setting the initial orientation to be 0. We are interested in the evolution of the mean and the variance of this SDE. Let $m(t)= \langle y(t) \rangle$
+where the averaging is the ensemble average (equivalently the average of the several trajectories of the
+same dynamics). The mean $m(t)$ evolves as
+\begin{align}
+    \ddot{m}(t) =& \ -\alpha \dot{m}(t).
+\end{align}
+By applying the above boundary condition, we can immediately see that $m(t) = 0$. Nevertheless, we are
+interested in the evolution of the standard deviation, $\beta(t) = \langle [y(t) - m(t)]^2 \rangle$.
+In order to derive an expression for that, we differential the definition once to get
+\begin{align*}
+    \dot{\beta}(t) =& \ 2 \langle \{ y(t) - m(t) \} \{ \yd(t) - \dot{m}(t) \} \rangle, \\
+    = & \ 2 \langle y \yd \rangle - 2 m \dot{m}, \\
+    = & \ 2 v_o [ \langle y \theta \rangle - m \dot{m}].
+\end{align*}
+We can estimate $\langle y \theta \rangle$ as follows
+\begin{align*}
+    \langle y \theta \rangle =& \ v_o \E \bigg[ \int_0^t \theta(s) \theta(t) \ \d s \bigg], \\
+    =& \ v_o  \int_0^t \langle\theta(t) \theta(s)\rangle \ \d s.
+\end{align*}
+We know that for an OU process, 
+\[
+\langle\theta(t) \theta(s)\rangle = \frac{D}{\alpha} \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg].
+\]
+From this we see that
+\begin{align*}
+    \langle y \theta \rangle =& \ \frac{v_o D}{\alpha} \int_0^t  \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg] \ \d s, \\
+    =& \ \frac{v_o D}{\alpha^2} \bigg[ 1 - 2 \e^{-\alpha t} + \e^{-2 \alpha t}\bigg].
+\end{align*}
+We thus have the evolution of the co-variance of $y(t)$ as
+\begin{align}
+    \dot{\beta}(t) = & \  \frac{2 v_o^2 D}{\alpha^2} \bigg[ 1 - 2 \e^{-\alpha t} + \e^{-2 \alpha t}\bigg].
+\end{align}
+We finally have the variance as a function of time as
+\begin{align}
+    \beta(t) & = \frac{v_o^2 D}{\alpha^3} \bigg[ 2 \alpha t - \e^{-2 \alpha t} + 4 \e^{-\alpha t} \bigg].
+\end{align}
+For $t \gg \alpha^{-1}$ we can immediately see that $\beta(t) \approx 2v_o^2 D t/\alpha^2$. We are interested
+in the variance at time, $t^* = c/v_o$ where $c$ is the distance of the agent from the goal A and $v_o$
+is the intrinsic speed of the agent. At this time the location of the agent along x-axis is $x(t^*)=c$
+while the variance in $y(t)$ is $\beta(t^*) \approx 2v_o D c/\alpha^2$.
+% Differentiating this once more, we get
+% \begin{align*}
+%     \ddot{\beta}(t) =& \ 2 [ v_o \langle (\yd \theta + y \dot{\theta} \rangle - \dot{m}^2 - m \ddot{m}]
+% \end{align*}
+
 
 \end{document}
