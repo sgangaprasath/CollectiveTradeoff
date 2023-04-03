@@ -29,7 +29,7 @@
 \usepackage{algorithm2e}
 \usepackage{mathrsfs}
 \usepackage{bm, amsbsy}
-\NoCaptionOfAlgo
+% `\NoCaptionOfAlgo'
 \usepackage{tcolorbox}
 
 \usepackage[hidelinks=true]{hyperref}
@@ -67,7 +67,7 @@ citecolor   = greenish %Colour of citations
 \def\E{\mathbb{E}}
 \def\S{\mathcal{S}}
 \def\pol{\pi_\theta}
-\def\qsa{Q(s, a)}
+\def\qsa{Q (s, a)}
 \def\paa{\pi(a, s)}
 \def\H{\sigma}
 \def\grad{\nabla}
@@ -144,8 +144,7 @@ Update action-value function using SARSA rule:
  
  Check if target $s^*$ is reached, continue if not
 }
-\caption[Recursive least-squares estimator: $\pi \approx \pi^*$]{}
-\label{alg:rlsealg}
+\caption[Recursive least-squares estimator: $\pi \approx \pi^*$]{}\label{alg:rlsealg}
 \end{algorithm}
 \end{tcolorbox}
 \end{center}
@@ -167,8 +166,7 @@ we use the condition $\d\r(t) \perp \th(s,t)$.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{./figs/schematic.pdf}
-    \label{fig:schm1}
+    \includegraphics[width=\textwidth]{./figs/schematic.pdf}\label{fig:schm1}
     \caption{Schematic of setup}
 \end{figure}
 
@@ -222,7 +220,7 @@ its dynamics which provides the probability of a given state $\theta(t)$ i.e. $p
 The dynamics of the angle relaxes to equilibrium angle $\theta = 0$ in the absence of fluctuations.
 The evolution of the mean is $\dot{h}(t) = - \alpha h(t)$ where $h(t) = \langle \theta(t) \rangle$
 while the co-variance dynamics is given by $\dot{\zeta}(t) = -2\alpha \zeta(t) + 2D$ with
-$\zeta = \langle (\theta(t) - h(t))^2 \rangle = \langle \theta^2(t) \rangle - h(t)^2$.
+$\zeta = \langle {(\theta(t) - h(t))}^2 \rangle = \langle \theta^2(t) \rangle - h{(t)}^2$.
 
 The position of the agent evolves as $\dot{\r}(t) = v_o \ph(t)$. Under the assumption that the angle
 is small, we can write $\dot{\r}(t) = v_o (1, \theta)$. Thus we have $\yd (t) = v_o \theta$ which can
@@ -238,7 +236,7 @@ same dynamics). The mean $m(t)$ evolves as
     \ddot{m}(t) =& \ -\alpha \dot{m}(t).
 \end{align}
 By applying the above boundary condition, we can immediately see that $m(t) = 0$. Nevertheless, we are
-interested in the evolution of the standard deviation, $\beta(t) = \langle [y(t) - m(t)]^2 \rangle$.
+interested in the evolution of the standard deviation, $\beta(t) = \langle {[y(t) - m(t)]}^2 \rangle$.
 In order to derive an expression for that, we differential the definition once to get
 \begin{align*}
     \dot{\beta}(t) =& \ 2 \langle \{ y(t) - m(t) \} \{ \yd(t) - \dot{m}(t) \} \rangle, \\
