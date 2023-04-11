@@ -214,8 +214,8 @@ This is the evolution of the famous Ornstein-Uhlenbeck process which has been ex
 and the evolution of the probability density can be solved exactly. The Fokker-Plack equation for
 its dynamics which provides the probability of a given state $\theta(t)$ i.e. $p(\theta, t)$, is given by
 \[
-    \frac{\partial p}{\partial t} = \alpha \frac{\partial(p \theta)}{\partial \theta }
-    + D \frac{\partial^2 p}{\partial x^2}
+    \frac{\partial p}{\partial t} = \alpha \frac{\partial(\theta p)}{\partial \theta }
+    + D \frac{\partial^2 p}{\partial \theta^2}
 \]
 The dynamics of the angle relaxes to equilibrium angle $\theta = 0$ in the absence of fluctuations.
 The evolution of the mean is $\dot{h}(t) = - \alpha h(t)$ where $h(t) = \langle \theta(t) \rangle$
@@ -237,7 +237,7 @@ same dynamics). The mean $m(t)$ evolves as
 \end{align}
 By applying the above boundary condition, we can immediately see that $m(t) = 0$. Nevertheless, we are
 interested in the evolution of the standard deviation, $\beta(t) = \langle {[y(t) - m(t)]}^2 \rangle$.
-In order to derive an expression for that, we differential the definition once to get
+In order to derive an expression for that, we differentiate the definition once to get
 \begin{align*}
     \dot{\beta}(t) =& \ 2 \langle \{ y(t) - m(t) \} \{ \yd(t) - \dot{m}(t) \} \rangle, \\
     = & \ 2 \langle y \yd \rangle - 2 m \dot{m}, \\
@@ -263,7 +263,7 @@ We thus have the evolution of the co-variance of $y(t)$ as
 \end{align}
 We finally have the variance as a function of time as
 \begin{align}
-    \beta(t) & = \frac{v_o^2 D}{\alpha^3} \bigg[ 2 \alpha t - \e^{-2 \alpha t} + 4 \e^{-\alpha t} \bigg].
+    \beta(t) & = \frac{v_o^2 D}{\alpha^3} \bigg[ 2 \alpha t - \e^{-2 \alpha t} + 4 \e^{-\alpha t} - 3 \bigg].
 \end{align}
 For $t \gg \alpha^{-1}$ we can immediately see that $\beta(t) \approx 2v_o^2 D t/\alpha^2$. We are interested
 in the variance at time, $t^* = c/v_o$ where $c$ is the distance of the agent from the goal A and $v_o$
