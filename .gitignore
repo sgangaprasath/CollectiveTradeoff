@@ -2,6 +2,7 @@
 /LaTeX/*.fls
 /LaTeX/*.out
 /LaTeX/*.log
+/LaTeX/*.pdf
 /LaTeX/*.gz
 /LaTeX/*.fdb_latexmk
 /.DS_Store
