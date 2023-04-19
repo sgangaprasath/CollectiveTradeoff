@@ -274,5 +274,39 @@ while the variance in $y(t)$ is $\beta(t^*) \approx 2v_o D c/\alpha^2$.
 %     \ddot{\beta}(t) =& \ 2 [ v_o \langle (\yd \theta + y \dot{\theta} \rangle - \dot{m}^2 - m \ddot{m}]
 % \end{align*}
 
+\section{Evaluating value function of policies}
+We are at a stage where we can solve the speed/distance-accuracy trade-off for the an agent trying
+to make optimal decision on when to initiate innovation. In order to do that, let us define clearly
+what is the state and action of the agent.
+\subsection{$v(s^t)$ for $\pi_{\rm int}(s^t)$}
+The agent's state $s^t$ is given by its position, $s^t: \r^t=\{ x^t, y^t \}$ and the action it can take
+at these location is choose a orientation to move, $a^t: \theta^t$. Once the agent choose this action,
+it is taken to the next state $s^t$ through the dynamics: $\r^{t+1} = \r^t + l \ph_\theta^{t}$.
+Before we compute the state-value function for the intrinsic policy, $\pi_{\rm int}(s)$, the sequence
+of process we described above can be written as
+\begin{align}
+    \text{Measurement: } \phi^{t} = & \ \tan^{-1} \bigg( \frac{r_y^t}{r_x^t} \bigg), \\
+    \text{Action, $a^t$: }\theta^{t} =& \ \frac{\pi}{2} + \phi^{t} + \zeta^t, \\
+    \text{State update, $s^{t+1}$: } \r^{t+1} =& \ \r^t + l \ph_\theta^{t}.
+\end{align}
+It is however difficult to evaluate the value function of this specific functional form of the policy.
+Instead we move to a different form given by the Langevin dynamics of the orientation satisfying
+the equation:
+\begin{align}
+    \gamma \partial_j \phi (s, j) =& \ B \partial_s^2 \phi (s, j) + \Gamma(s, j),
+\end{align}
+where the arc-length $s \in (0, L], L = nl$ and epoch $j = 0 \dots N$. The bending stiffness $B$
+in the equation captures the constraint that the motion of the agent is in the forward direction.
+Further this equation is subject to the boundary condition $\phi(0, j) = 0, \phi'(0, j) = \kappa_o$ with $\kappa_o$ being
+the curvature of the initial pheromone trail, $\kappa_o \sim a^{-1}$. Here $\Gamma(s, j)$ is the
+spatio-epochal delta-correlated noise whose variance is given by
+\[
+\langle \Gamma_\alpha \Gamma_\beta \rangle = 2 \gamma D \delta_{\alpha \beta} \delta(s-s') \delta(j-j')
+\]
+
+The interpretation of this equation is the the orientation dynamics of the agent undergoes a diffusion but the overall trajectory has 
+an intrinsic curvature (arising out of the boundary condition). Here $s$ is the arc-length which is
+equivalent to $k$-step motion of the agent i.e. $s_k = k l = k v_o \delta t$. Similarly $j$ in the
+equation is the $j$-th epoch of $k$-step trajectory of the agent.
 
 \end{document}
