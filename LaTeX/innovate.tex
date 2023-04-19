@@ -307,6 +307,11 @@ spatio-epochal delta-correlated noise whose variance is given by
 The interpretation of this equation is the the orientation dynamics of the agent undergoes a diffusion but the overall trajectory has 
 an intrinsic curvature (arising out of the boundary condition). Here $s$ is the arc-length which is
 equivalent to $k$-step motion of the agent i.e. $s_k = k l = k v_o \delta t$. Similarly $j$ in the
-equation is the $j$-th epoch of $k$-step trajectory of the agent.
+equation is the $j$-th epoch of $k$-step trajectory of the agent. The location of the agent is given by
+$\partial_s \r(s,j) = \th_\theta(s, j) = \{ \cos \phi(s, j), \sin \phi(s, j) \} = \{ -\sin \theta(s, j), \cos \theta(s, j) \}$. Once we know $\phi(s, j)$
+can evaluate the position, $\r(s, j)$ and the orientation $\theta(s, j)$. In this framework
+the policy $\pi_{\rm int} (\r(s))$ for the $j$-th epoch gives the action $\phi(s)$ that moves the agent
+along using the geometric constraint/equation $\r'(s) = \th_\theta(s)$.
+\textbf{Don't need temporal/epochal dynamics}
 
 \end{document}
