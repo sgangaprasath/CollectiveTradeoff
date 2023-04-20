@@ -76,6 +76,7 @@ citecolor   = greenish %Colour of citations
 \def\nh{\hat{\mathbf{n}}}
 \def\yd{\dot{y}}
 \def\ite{\text{ite}}
+\def\P{\mathcal{P}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
 \newtcolorbox{myalgorithm}[2][]{%
@@ -289,29 +290,47 @@ of process we described above can be written as
     \text{Action, $a^t$: }\theta^{t} =& \ \frac{\pi}{2} + \phi^{t} + \zeta^t, \\
     \text{State update, $s^{t+1}$: } \r^{t+1} =& \ \r^t + l \ph_\theta^{t}.
 \end{align}
-It is however difficult to evaluate the value function of this specific functional form of the policy.
-Instead we move to a different form given by the Langevin dynamics of the orientation satisfying
-the equation:
-\begin{align}
-    \gamma \partial_j \phi (s, j) =& \ B \partial_s^2 \phi (s, j) + \Gamma(s, j),
-\end{align}
-where the arc-length $s \in (0, L], L = nl$ and epoch $j = 0 \dots N$. The bending stiffness $B$
-in the equation captures the constraint that the motion of the agent is in the forward direction.
-Further this equation is subject to the boundary condition $\phi(0, j) = 0, \phi'(0, j) = \kappa_o$ with $\kappa_o$ being
-the curvature of the initial pheromone trail, $\kappa_o \sim a^{-1}$. Here $\Gamma(s, j)$ is the
-spatio-epochal delta-correlated noise whose variance is given by
+It is however difficult to evaluate the value function for this specific functional form of the policy.
+We assume that the distribution of the orientation of the agent is distributed as through
+it is a worm-like chain polymer whose orientation distribution is given by
 \[
-\langle \Gamma_\alpha \Gamma_\beta \rangle = 2 \gamma D \delta_{\alpha \beta} \delta(s-s') \delta(j-j')
+    \P[\theta(s)] = \frac{\e^{-\beta E_b}}{\mathcal{Z}}
 \]
+where the bending energy $E_b[\theta(s)] = B/2 \int_0^L (\theta'(s)-\kappa_o)^2 \ \d s$, fugacity
+$\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
+stiffness $B$ captures the constraint for the agent to move forward, $\beta$ is the effective
+temperature capturing the fluctuations in the trajectory of agent. We also have
+boundary conditions $\theta(0) = 0$ and $\theta'(0) = \kappa_o = a^{-1}$. We can discretize
+the bending energy as
+\[
+    E_b[\theta] = \frac{B}{2} \sum_0^n l \bigg( \frac{\theta^{n+1} - \theta^n}{l}  - \kappa_o \bigg)^2.
+\]
+Assuming 
 
-The interpretation of this equation is the the orientation dynamics of the agent undergoes a diffusion but the overall trajectory has 
-an intrinsic curvature (arising out of the boundary condition). Here $s$ is the arc-length which is
-equivalent to $k$-step motion of the agent i.e. $s_k = k l = k v_o \delta t$. Similarly $j$ in the
-equation is the $j$-th epoch of $k$-step trajectory of the agent. The location of the agent is given by
-$\partial_s \r(s,j) = \th_\theta(s, j) = \{ \cos \phi(s, j), \sin \phi(s, j) \} = \{ -\sin \theta(s, j), \cos \theta(s, j) \}$. Once we know $\phi(s, j)$
-can evaluate the position, $\r(s, j)$ and the orientation $\theta(s, j)$. In this framework
-the policy $\pi_{\rm int} (\r(s))$ for the $j$-th epoch gives the action $\phi(s)$ that moves the agent
-along using the geometric constraint/equation $\r'(s) = \th_\theta(s)$.
-\textbf{Don't need temporal/epochal dynamics}
+
+% It is however difficult to evaluate the value function of this specific functional form of the policy.
+% Instead we move to a different form given by the Langevin dynamics of the orientation satisfying
+% the equation:
+% \begin{align}
+%     \gamma \partial_j \phi (s, j) =& \ B \partial_s^2 \phi (s, j) + \Gamma(s, j),
+% \end{align}
+% where the arc-length $s \in (0, L], L = nl$ and epoch $j = 0 \dots N$. The bending stiffness $B$
+% in the equation captures the constraint that the motion of the agent is in the forward direction.
+% Further this equation is subject to the boundary condition $\phi(0, j) = 0, \phi'(0, j) = \kappa_o$ with $\kappa_o$ being
+% the curvature of the initial pheromone trail, $\kappa_o \sim a^{-1}$. Here $\Gamma(s, j)$ is the
+% spatio-epochal delta-correlated noise whose variance is given by
+% \[
+% \langle \Gamma_\alpha \Gamma_\beta \rangle = 2 \gamma D \delta_{\alpha \beta} \delta(s-s') \delta(j-j')
+% \]
+
+% The interpretation of this equation is the the orientation dynamics of the agent undergoes a diffusion but the overall trajectory has 
+% an intrinsic curvature (arising out of the boundary condition). Here $s$ is the arc-length which is
+% equivalent to $k$-step motion of the agent i.e. $s_k = k l = k v_o \delta t$. Similarly $j$ in the
+% equation is the $j$-th epoch of $k$-step trajectory of the agent. The location of the agent is given by
+% $\partial_s \r(s,j) = \th_\theta(s, j) = \{ \cos \phi(s, j), \sin \phi(s, j) \} = \{ -\sin \theta(s, j), \cos \theta(s, j) \}$. Once we know $\phi(s, j)$
+% can evaluate the position, $\r(s, j)$ and the orientation $\theta(s, j)$. In this framework
+% the policy $\pi_{\rm int} (\r(s))$ for the $j$-th epoch gives the action $\phi(s)$ that moves the agent
+% along using the geometric constraint/equation $\r'(s) = \th_\theta(s)$.
+% \textbf{Don't need temporal/epochal dynamics}
 
 \end{document}
