@@ -77,6 +77,7 @@ citecolor   = greenish %Colour of citations
 \def\yd{\dot{y}}
 \def\ite{\text{ite}}
 \def\P{\mathcal{P}}
+\def\D{\mathcal{D}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
 \newtcolorbox{myalgorithm}[2][]{%
@@ -305,7 +306,15 @@ the bending energy as
 \[
     E_b[\theta] = \frac{B}{2} \sum_0^n l \bigg( \frac{\theta^{n+1} - \theta^n}{l}  - \kappa_o \bigg)^2.
 \]
-Assuming 
+We are interested in evaluating the value function of this policy, $v(s^t)$ whose
+expression is given by
+\[
+    v_\pi(s) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = s, A_t = a \bigg].
+\]
+We can write this in path-integral form as
+\begin{align}
+    v_\pi(s) =& \ \sum_{k=0}^\infty \int \D[\theta(s)] \P[\theta(s)] \gamma^k R_{t+k+1}
+\end{align}
 
 
 % It is however difficult to evaluate the value function of this specific functional form of the policy.
