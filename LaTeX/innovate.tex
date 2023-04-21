@@ -295,7 +295,7 @@ It is however difficult to evaluate the value function for this specific functio
 We assume that the distribution of the orientation of the agent is distributed as through
 it is a worm-like chain polymer whose orientation distribution is given by
 \[
-    \P[\theta(s)] = \frac{\e^{-\beta E_b}}{\mathcal{Z}}
+    \P[\theta(s)] = \frac{1}{\mathcal{Z}}\exp{(-\beta E_b)}
 \]
 where the bending energy $E_b[\theta(s)] = B/2 \int_0^L (\theta'(s)-\kappa_o)^2 \ \d s$, fugacity
 $\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
@@ -313,7 +313,8 @@ expression is given by
 \]
 We can write this in path-integral form as
 \begin{align}
-    v_\pi(s) =& \ \sum_{k=0}^\infty \int \D[\theta(s)] \P[\theta(s)] \gamma^k R_{t+k+1}
+    v_\pi(s) =& \ \sum_{k=t}^T \int \D[\theta(s)] \P[\theta(s)] \gamma^{k-t} R_{k+1}, \\
+    \approx& \ \int_{s}^L \int \D[\theta(s)] \P[\theta(s)] R(s) \ \d s
 \end{align}
 
 
