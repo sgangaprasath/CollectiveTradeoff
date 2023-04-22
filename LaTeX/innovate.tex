@@ -337,8 +337,13 @@ we can write the reward as $R(s) = \exp(-\kappa_o s/\phi^*)$. The value function
     =& \ \frac{\phi^*}{\kappa_o} \e^{-\kappa_o L/\phi^*} [ \e^{\kappa_o(L-s)/\phi^*} - 1].
 \end{align}
 We now introduce perturbations in the trajectory of the agent from the trajectory $\theta_b(s)$ by introducing
-perturbations $\theta(s) = \theta_b(s) + \delta \theta(s)$.
-
+perturbations $\theta(s) = \theta_b(s) + \delta \theta(s)$. We know that $\phi$ and $\theta$ are related by the
+geometric constraint: $\phi(s) = \theta(s) - \pi/2$ which immediately gives $\phi(s) = \kappa_o s + \delta \theta(s)$.
+We can then write the value function As
+\begin{align}
+    v_\pi(s) =& \ \int_{s}^L \int \frac{ \D[\theta(s)]}{\mathcal{Z}}\e^{-\beta \int_0^L (\theta'(s)-\kappa_o)^2 \ \d s} \exp(-\phi(\tau)/\phi^*) \ \d \tau, \\
+    =& \ \int_{s}^L \int \frac{ \D[\theta(s)]}{\mathcal{Z}}\e^{-\beta \int_0^L [\delta \theta'(s)]^2 \ \d s} \e^{(-\kappa_o \tau + \delta \theta(\tau))/\phi^*} \ \d \tau.
+\end{align}
 % It is however difficult to evaluate the value function of this specific functional form of the policy.
 % Instead we move to a different form given by the Langevin dynamics of the orientation satisfying
 % the equation:
