@@ -328,11 +328,16 @@ We can write the ultimate expression for the value function we would like to eva
 \end{align}
 We know that $\theta(s)$ has to satisfy the boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o$.
 Before we solve the stochastic version of the problem, let us solve it for the deterministic case when
-the agent follows the semi-circular path exactly. In this scenario, $\theta(s) = \pi/2 + \kappa_o s$ and
-from this it immediately follows that $\phi(s) = (\pi - \kappa_o s)/2$.
-
-
-which implies we can write $\theta(s) = \kappa_o s + \sum_{n=0}^{n_c} a_n s \sin(n \pi s/L)$.
+the agent follows the semi-circular path exactly. In this scenario, $\theta_b(s) = \pi/2 + \kappa_o s$ and
+from this it immediately follows that $\phi_b(s) = \kappa_o s$. For this particular functional form of $\phi(s)$
+we can write the reward as $R(s) = \exp(-\kappa_o s/\phi^*)$. The value function from this can be written as
+\begin{align}
+    v_b(s) =& \ \int_s^L \exp(-\kappa_o \tau/\phi^*) \ \d \tau, \\
+    =& \ -\frac{\phi^*}{\kappa_o} [\e^{-\kappa_o L/\phi^*} - \e^{-\kappa_o s/\phi^*}], \\
+    =& \ \frac{\phi^*}{\kappa_o} \e^{-\kappa_o L/\phi^*} [ \e^{\kappa_o(L-s)/\phi^*} - 1].
+\end{align}
+We now introduce perturbations in the trajectory of the agent from the trajectory $\theta_b(s)$ by introducing
+perturbations $\theta(s) = \theta_b(s) + \delta \theta(s)$.
 
 % It is however difficult to evaluate the value function of this specific functional form of the policy.
 % Instead we move to a different form given by the Langevin dynamics of the orientation satisfying
