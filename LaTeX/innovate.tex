@@ -301,22 +301,33 @@ where the bending energy $E_b[\theta(s)] = B/2 \int_0^L (\theta'(s)-\kappa_o)^2 
 $\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
 stiffness $B$ captures the constraint for the agent to move forward, $\beta$ is the effective
 temperature capturing the fluctuations in the trajectory of agent. We also have
-boundary conditions $\theta(0) = 0$ and $\theta'(0) = \kappa_o = a^{-1}$. We can discretize
-the bending energy as
-\[
-    E_b[\theta] = \frac{B}{2} \sum_0^n l \bigg( \frac{\theta^{n+1} - \theta^n}{l}  - \kappa_o \bigg)^2.
-\]
+boundary conditions $\theta(0) = 0$ and $\theta'(0) = \kappa_o = a^{-1}$. 
+% We can discretize the bending energy as
+% \[
+%     E_b[\theta] = \frac{B}{2} \sum_0^n l \bigg( \frac{\theta^{n+1} - \theta^n}{l}  - \kappa_o \bigg)^2.
+% \]
 We are interested in evaluating the value function of this policy, $v(s^t)$ whose
 expression is given by
 \[
-    v_\pi(s) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = s, A_t = a \bigg].
+    v_\pi(S) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = S \bigg].
 \]
 We can write this in path-integral form as
 \begin{align}
     v_\pi(s) =& \ \sum_{k=t}^T \int \D[\theta(s)] \P[\theta(s)] \gamma^{k-t} R_{k+1}, \\
     \approx& \ \int_{s}^L \int \D[\theta(s)] \P[\theta(s)] R(s) \ \d s
 \end{align}
-
+The reward itself is a function of the agent's azimuthal direction, $\phi(s) = \tan^{-1}(y(s)/x(s))$.
+Further we know the geometric relation $x'(s) = \cos(\theta(s)), y'(s) = \sin(\theta(s))$. The functional
+form of the reward is $R(\phi) = \exp(-\phi/\phi^*)$ and 
+\[
+    \phi(s) = \tan^{-1}\bigg( \frac{\int_0^s \sin(\theta(\tau)) \ \d \tau}{\int_0^s \cos(\theta(\tau)) \ \d \tau} \bigg)
+\]
+We can write the ultimate expression for the value function we would like to evaluate as,
+\begin{align}
+    v_\pi(s) =& \ \int_{s}^L \int \D[\theta(s)] \P[\theta(s)] \exp(-\phi(s)/\phi^*) \ \d s'.
+\end{align}
+We know that $\theta(s)$ has to satisfy the boundary conditions $\theta(0) = 0$ and $\theta'(0) = \kappa_o$
+which implies we can write $\theta(s) = \kappa_o s + \sum_{n=0}^{n_c} a_n s \sin(n \pi s/L)$.
 
 % It is however difficult to evaluate the value function of this specific functional form of the policy.
 % Instead we move to a different form given by the Langevin dynamics of the orientation satisfying
