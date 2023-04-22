@@ -301,7 +301,7 @@ where the bending energy $E_b[\theta(s)] = B/2 \int_0^L (\theta'(s)-\kappa_o)^2 
 $\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
 stiffness $B$ captures the constraint for the agent to move forward, $\beta$ is the effective
 temperature capturing the fluctuations in the trajectory of agent. We also have
-boundary conditions $\theta(0) = 0$ and $\theta'(0) = \kappa_o = a^{-1}$. 
+boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o = a^{-1}$. 
 % We can discretize the bending energy as
 % \[
 %     E_b[\theta] = \frac{B}{2} \sum_0^n l \bigg( \frac{\theta^{n+1} - \theta^n}{l}  - \kappa_o \bigg)^2.
@@ -326,7 +326,12 @@ We can write the ultimate expression for the value function we would like to eva
 \begin{align}
     v_\pi(s) =& \ \int_{s}^L \int \D[\theta(s)] \P[\theta(s)] \exp(-\phi(s)/\phi^*) \ \d s'.
 \end{align}
-We know that $\theta(s)$ has to satisfy the boundary conditions $\theta(0) = 0$ and $\theta'(0) = \kappa_o$
+We know that $\theta(s)$ has to satisfy the boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o$.
+Before we solve the stochastic version of the problem, let us solve it for the deterministic case when
+the agent follows the semi-circular path exactly. In this scenario, $\theta(s) = \pi/2 + \kappa_o s$ and
+from this it immediately follows that $\phi(s) = (\pi - \kappa_o s)/2$.
+
+
 which implies we can write $\theta(s) = \kappa_o s + \sum_{n=0}^{n_c} a_n s \sin(n \pi s/L)$.
 
 % It is however difficult to evaluate the value function of this specific functional form of the policy.
