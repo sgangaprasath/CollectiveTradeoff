@@ -1,53 +1,51 @@
-%\documentclass[%
-%reprint,
-%%singlecolumn,
-%superscriptaddress,
-%%groupedaddress,
-%%unsortedaddress,
-%%runinaddress,
-%%frontmatterverbose, 
-%%preprint,
-%%showpacs,preprintnumbers,
-%%nofootinbib,
-%%nobibnotes,
-%%bibnotes,
-%%pre, 
-%floatfix,
-%amsmath,
-%amssymb,
-%aps,
-%notitlepage
-%]{revtex4-1}
-\documentclass[12pt]{article}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb,graphicx,fullpage}
-\usepackage{mathrsfs}
+\documentclass[%
+reprint,
+%singlecolumn,
+superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%showpacs,preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+%pre, 
+floatfix,
+amsmath,
+amssymb,
+aps,
+notitlepage
+]{revtex4-1}
+%\usepackage[sort&compress,comma,numbers,round]{natbib}
+\usepackage{graphicx}
 \usepackage{bm}
 \usepackage[hidelinks=true]{hyperref} 
 \usepackage{xcolor}
-\usepackage{algorithm2e}
-\usepackage{mathrsfs}
-\usepackage{bm, amsbsy}
-% `\NoCaptionOfAlgo'
-\usepackage{tcolorbox}
-
 \usepackage[hidelinks=true]{hyperref}
 \usepackage{xcolor}
 %\definecolor{greenish}{rgb}{0.13,0.58,0.16}
 \definecolor{greenish}{RGB}{141,198,63}
 \definecolor{reddish}{RGB}{239,65,54}
 \definecolor{blueish}{RGB}{28,117,188}
-\definecolor{alg1}{RGB}{122,89,239}
-\definecolor{alg2}{RGB}{245,147,106}
-\definecolor{alg3}{RGB}{124,198,137}
 
 \hypersetup{
 colorlinks   = true, %Colours links instead of ugly boxes
 urlcolor     = blueish, %Colour for external hyperlinks
-linkcolor    = reddish, %Colour of internal links
+linkcolor    = magenta, %Colour of internal links
 citecolor   = greenish %Colour of citations
 }
+% \documentclass[12pt]{article}
+% \usepackage{amsmath}
+% \usepackage{amsfonts}
+% \usepackage{amssymb,graphicx,fullpage}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage[hidelinks=true]{hyperref} 
+\usepackage{xcolor}
+\usepackage{mathrsfs}
+\usepackage{bm, amsbsy}
 
 \def\grad{\nabla}
 \def\at{\hat{a}}
@@ -78,27 +76,22 @@ citecolor   = greenish %Colour of citations
 \def\ite{\text{ite}}
 \def\P{\mathcal{P}}
 \def\D{\mathcal{D}}
+\def\Z{\mathcal{Z}}
+\def\ah{\hat{a}}
+\def\theta{\vartheta}
+\def\H{\mathcal{H}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
-\newtcolorbox{myalgorithm}[2][]{%
-    fonttitle=\bfseries,
-    title=#2,
-    #1,
-    before upper={\begin{algorithm}[H]},
-    after upper={\end{algorithm}}
-}
-
 \begin{document}
-% \title{Influence of innate behavior on the dynamics of innovation in foraging}
-\title{Dynamics of innovation along foraged trajectories}
+\title{Dynamics of innovation in stigmergic collectives}
 \author{S Ganga Prasath}
-%\email{sgangaprasath@iitm.ac.in}
-%\affiliation{Department of Applied Mechanics, Indian Institute of Technology Madras, Chennai TN 632406.}
+\email{sgangaprasath@iitm.ac.in}
+\affiliation{Department of Applied Mechanics, Indian Institute of Technology Madras, Chennai TN 600 036.}
 \date{}
 
-%\begin{abstract}
-%For later...
-%\end{abstract}
+\begin{abstract}
+For later...
+\end{abstract}
 
 %\pacs{Valid PACS appear here}
 \maketitle
@@ -123,33 +116,6 @@ while the policy update is given by
 \[
 \pi(s) = \argmax_a Q(s, a).
 \]
-This is shown in algorithmic form in Alg.~\ref{alg:rlsealg}. \\[5pt]
-
-\begin{center}
-\begin{tcolorbox}[colframe=alg1!50,colback=alg1!10,fonttitle=\bfseries, title=Algorithm~\ref*{alg:rlsealg}: SARSA algorithm for action-value update]
-\begin{algorithm}[H]
-\textit{Initialize}:
-State, $s_0$;
-action, $a_0$;
-action-value function, $Q(s_j, a_j)$
-
-\ForEach{epoch}{
-Update action-value function using SARSA rule:
-    \begin{align*}
-    	Q_\pi(s_t, a_t) \leftarrow & \ Q_\pi(s_t, a_t) + \alpha \{ r_{t+1} + \gamma Q_\pi(s_{t+1}, a_{t+1}) - Q_\pi(s_t, a_t) \}
-    \end{align*}
- Choose action:
- \begin{align*}
- \pi(s_t) =& \ \argmax_a Q(s_t, a_t)
- \end{align*}
- Calculate reward, $r_t$
- 
- Check if target $s^*$ is reached, continue if not
-}
-\caption[Recursive least-squares estimator: $\pi \approx \pi^*$]{}\label{alg:rlsealg}
-\end{algorithm}
-\end{tcolorbox}
-\end{center}
 
 \section{Trail following behavior}
 Consider a trail of pheromone $\x^*(s)$ represented by arc-length parameterization $s$.
@@ -166,11 +132,11 @@ trail will be to move along the direction given by $(\d \r/|\d \r| + \th)$ by a 
 length $h$. In order to identify the location along $\xst(s)$ where $\d \r$ intersects,
 we use the condition $\d\r(t) \perp \th(s,t)$.
 
-\begin{figure}
+\begin{figure*}
     \centering
     \includegraphics[width=\textwidth]{./figs/schematic.pdf}\label{fig:schm1}
     \caption{Schematic of setup}
-\end{figure}
+\end{figure*}
 
 \subsection{Semi-circular trail}
 For the problem at hand, we will considering a semi-circular trail whose coordinates can be
@@ -213,16 +179,16 @@ can be written as a stochastic differential equation given by
     \langle \eta(t) \eta(0) \rangle =& \ \delta(t).
 \end{align}
 This is the evolution of the famous Ornstein-Uhlenbeck process which has been extremely well studied
-and the evolution of the probability density can be solved exactly. The Fokker-Plack equation for
+and the evolution of the probability density can be solved exactly. The Fokker-Planck equation for
 its dynamics which provides the probability of a given state $\theta(t)$ i.e. $p(\theta, t)$, is given by
 \[
-    \frac{\partial p}{\partial t} = \alpha \frac{\partial(\theta p)}{\partial \theta }
-    + D \frac{\partial^2 p}{\partial \theta^2}
+    \frac{\partial \P}{\partial t} = \alpha \frac{\partial(\theta \P)}{\partial \theta }
+    + D \frac{\partial^2 \P}{\partial \theta^2}
 \]
 The dynamics of the angle relaxes to equilibrium angle $\theta = 0$ in the absence of fluctuations.
-The evolution of the mean is $\dot{h}(t) = - \alpha h(t)$ where $h(t) = \langle \theta(t) \rangle$
+The evolution of the mean is $\dot{h}(t) = - \alpha h(t)$ where $h(t) = \E [ \theta(t) ]$
 while the co-variance dynamics is given by $\dot{\zeta}(t) = -2\alpha \zeta(t) + 2D$ with
-$\zeta = \langle {(\theta(t) - h(t))}^2 \rangle = \langle \theta^2(t) \rangle - h{(t)}^2$.
+$\zeta = \E [  {(\theta(t) - h(t))}^2 ] = \E [  \theta^2(t) ] - h{(t)}^2$.
 
 The position of the agent evolves as $\dot{\r}(t) = v_o \ph(t)$. Under the assumption that the angle
 is small, we can write $\dot{\r}(t) = v_o (1, \theta)$. Thus we have $\yd (t) = v_o \theta$ which can
@@ -231,32 +197,32 @@ be used to rewrite the orientation equation as
     \ddot{y}(t) =& \ - \alpha \yd (t) + v_o\sqrt{2 D} \eta(t).
 \end{align}
 This second order equation needs to boundary condition. We require $y(0) = 0$ and $\yd (0) = 0$ which
-comes from setting the initial orientation to be 0. We are interested in the evolution of the mean and the variance of this SDE. Let $m(t)= \langle y(t) \rangle$
-where the averaging is the ensemble average (equivalently the average of the several trajectories of the
-same dynamics). The mean $m(t)$ evolves as
+comes from setting the initial orientation to be 0. We are interested in the evolution of the mean and
+the variance of this SDE. Let $m(t)= \E [  y(t) ]$ where the averaging is the ensemble average
+(equivalently the average of the several trajectories of the same dynamics). The mean $m(t)$ evolves as
 \begin{align}
     \ddot{m}(t) =& \ -\alpha \dot{m}(t).
 \end{align}
 By applying the above boundary condition, we can immediately see that $m(t) = 0$. Nevertheless, we are
-interested in the evolution of the standard deviation, $\beta(t) = \langle {[y(t) - m(t)]}^2 \rangle$.
+interested in the evolution of the standard deviation, $\beta(t) = \E [  {(y(t) - m(t))}^2 ]$.
 In order to derive an expression for that, we differentiate the definition once to get
 \begin{align*}
-    \dot{\beta}(t) =& \ 2 \langle \{ y(t) - m(t) \} \{ \yd(t) - \dot{m}(t) \} \rangle, \\
-    = & \ 2 \langle y \yd \rangle - 2 m \dot{m}, \\
-    = & \ 2 v_o [ \langle y \theta \rangle - m \dot{m}].
+    \dot{\beta}(t) =& \ 2 \E [ \{ y(t) - m(t) \} \{ \yd(t) - \dot{m}(t) \} ], \\
+    = & \ 2 \E [ y \yd ] - 2 m \dot{m}, \\
+    = & \ 2 v_o \{ \E [ y \theta ] - m \dot{m}\}.
 \end{align*}
-We can estimate $\langle y \theta \rangle$ as follows
+We can estimate $\E [ y \theta ]$ as follows
 \begin{align*}
-    \langle y \theta \rangle =& \ v_o \E \bigg[ \int_0^t \theta(s) \theta(t) \ \d s \bigg], \\
-    =& \ v_o  \int_0^t \langle\theta(t) \theta(s)\rangle \ \d s.
+    \E [ y \theta ] =& \ v_o \E \bigg[ \int_0^t \theta(s) \theta(t) \ \d s \bigg], \\
+    =& \ v_o  \int_0^t \E [ \theta(t) \theta(s) ] \ \d s.
 \end{align*}
 We know that for an OU process, 
 \[
-\langle\theta(t) \theta(s)\rangle = \frac{D}{\alpha} \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg].
+    \E [ \theta(t) \theta(s) ] = \frac{D}{\alpha} \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg].
 \]
 From this we see that
 \begin{align*}
-    \langle y \theta \rangle =& \ \frac{v_o D}{\alpha} \int_0^t  \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg] \ \d s, \\
+    \E [ y \theta ] =& \ \frac{v_o D}{\alpha} \int_0^t  \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg] \ \d s, \\
     =& \ \frac{v_o D}{\alpha^2} \bigg[ 1 - 2 \e^{-\alpha t} + \e^{-2 \alpha t}\bigg].
 \end{align*}
 We thus have the evolution of the co-variance of $y(t)$ as
@@ -280,7 +246,7 @@ while the variance in $y(t)$ is $\beta(t^*) \approx 2v_o D c/\alpha^2$.
 We are at a stage where we can solve the speed/distance-accuracy trade-off for the an agent trying
 to make optimal decision on when to initiate innovation. In order to do that, let us define clearly
 what is the state and action of the agent.
-\subsection{$v(s^t)$ for $\pi_{\rm int}(s^t)$}
+\subsection{$v(\r, \theta)$ for $\pi_{\rm int}(\r, \theta)$}
 The agent's state $s^t$ is given by its position, $s^t: \r^t=\{ x^t, y^t \}$ and the action it can take
 at these location is choose a orientation to move, $a^t: \theta^t$. Once the agent choose this action,
 it is taken to the next state $s^t$ through the dynamics: $\r^{t+1} = \r^t + l \ph_\theta^{t}$.
@@ -302,6 +268,7 @@ $\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ an
 stiffness $B$ captures the constraint for the agent to move forward, $\beta$ is the effective
 temperature capturing the fluctuations in the trajectory of agent. We also have
 boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o = a^{-1}$. 
+
 % We can discretize the bending energy as
 % \[
 %     E_b[\theta] = \frac{B}{2} \sum_0^n l \bigg( \frac{\theta^{n+1} - \theta^n}{l}  - \kappa_o \bigg)^2.
@@ -309,22 +276,22 @@ boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o = a^{-1}$.
 We are interested in evaluating the value function of this policy, $v(s^t)$ whose
 expression is given by
 \[
-    v_\pi(S) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = S \bigg].
+    v_{\rm int}(\r, \theta) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = S \bigg].
 \]
 We can write this in path-integral form as
 \begin{align}
-    v_\pi(s) =& \ \sum_{k=t}^T \int \D[\theta(s)] \P[\theta(s)] \gamma^{k-t} R_{k+1}, \\
+    v_{\rm int}(\r, \theta) =& \ \sum_{k=t}^T \int \D[\theta(s)] \P[\theta(s)] \gamma^{k-t} R_{k+1}, \\
     \approx& \ \int_{s}^L \int \D[\theta(s)] \P[\theta(s)] R(s) \ \d s
 \end{align}
 The reward itself is a function of the agent's azimuthal direction, $\phi(s) = \tan^{-1}(y(s)/x(s))$.
 Further we know the geometric relation $x'(s) = \cos(\theta(s)), y'(s) = \sin(\theta(s))$. The functional
 form of the reward is $R(\phi) = \exp(-\phi/\phi^*)$ and 
 \[
-    \phi(s) = \tan^{-1}\bigg( \frac{\int_0^s \sin(\theta(\tau)) \ \d \tau}{\int_0^s \cos(\theta(\tau)) \ \d \tau} \bigg)
+    \phi(\r, \theta) = \tan^{-1}\bigg( \frac{\int_0^s \sin(\theta(\tau)) \ \d \tau}{\int_0^s \cos(\theta(\tau)) \ \d \tau} \bigg)
 \]
 We can write the ultimate expression for the value function we would like to evaluate as,
 \begin{align}
-    v_\pi(s) =& \ \int_{s}^L \int \D[\theta(s)] \P[\theta(s)] \exp(-\phi(s)/\phi^*) \ \d s'.
+    v_{\rm int}(\r, \theta) =& \ \int_{s}^L \int \D[\theta(s)] \P[\theta(s)] \exp(-\phi(s)/\phi^*) \ \d s'.
 \end{align}
 We know that $\theta(s)$ has to satisfy the boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o$.
 Before we solve the stochastic version of the problem, let us solve it for the deterministic case when
@@ -339,11 +306,83 @@ we can write the reward as $R(s) = \exp(-\kappa_o s/\phi^*)$. The value function
 We now introduce perturbations in the trajectory of the agent from the trajectory $\theta_b(s)$ by introducing
 perturbations $\theta(s) = \theta_b(s) + \delta \theta(s)$. We know that $\phi$ and $\theta$ are related by the
 geometric constraint: $\phi(s) = \theta(s) - \pi/2$ which immediately gives $\phi(s) = \kappa_o s + \delta \theta(s)$.
-We can then write the value function As
+We can then write the value function as
 \begin{align}
-    v_\pi(s) =& \ \int_{s}^L \int \frac{ \D[\theta(s)]}{\mathcal{Z}}\e^{-\beta \int_0^L (\theta'(s)-\kappa_o)^2 \ \d s} \exp(-\phi(\tau)/\phi^*) \ \d \tau, \\
-    =& \ \int_{s}^L \int \frac{ \D[\theta(s)]}{\mathcal{Z}}\e^{-\beta \int_0^L [\delta \theta'(s)]^2 \ \d s} \e^{(-\kappa_o \tau + \delta \theta(\tau))/\phi^*} \ \d \tau.
+    v_{\rm int}(s) =& \ \int_{s}^L \int \frac{ \D[\theta(s)]}{\mathcal{Z}}\e^{-(\beta B/2) \int_0^L (\theta'(s)-\kappa_o)^2 \ \d s} \exp(-\phi(\tau)/\phi^*) \ \d \tau, \\
+    =& \ \int_{s}^L \int \frac{ \D[\theta(s)]}{\mathcal{Z}}\e^{-(\beta B/2) \int_0^L [\delta \theta'(s)]^2 \ \d s} \e^{(-\kappa_o \tau - \delta \theta(\tau))/\phi^*} \ \d \tau.
 \end{align}
+Let us start by calculating $\Z$,
+\begin{align}
+    \Z =& \ \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}, \\
+    =& \ \int \mathcal{D}[\theta(s)] \e^{-(\beta B/2) \int_0^L [\delta \theta'(s)]^2 \ \d s}, \\
+    \delta \theta(s) =& \ \sum_{k=-\infty}^\infty \ah_k \e^{i 2 \pi k s/L}, \\
+    \int_0^L [\delta \theta'(s)]^2 \ \d s =& \ \int_0^L \bigg[ \sum_{k=-\infty}^\infty \frac{2\pi k}{L} \ah_k i \e^{i 2 \pi k s/L} \bigg]
+    \bigg[ \sum_{q=-\infty}^\infty \frac{2\pi q}{L} \ah_q i \e^{i 2 \pi q s/L} \bigg] \ \d s, \\
+    =& \ \frac{4\pi^2}{L} \sum_{k=-\infty}^\infty k^2 \ah_k^2, \text{where we have used } \ah_{-k} = \ah_k \\
+    \Z =& \ \prod_{k=-\infty}^\infty \int_{-\infty}^{\infty} \d \ah_k \e^{-\frac{\beta B k^2}{L} 4\pi^2\ah_k^2}, \\
+    =& \ \prod_{k=-\infty}^\infty \sqrt{\frac{\pi L}{\beta B}} \frac{1}{2\pi k}
+\end{align}
+We can go ahead and write down the value function as
+\begin{align}
+    v_{\rm int}(s) =& \ \frac{1}{\Z} \prod_{k=-\infty}^\infty \int_{-\infty}^{\infty} \e^{-\frac{\beta B k^2}{L} 4\pi^2 \ah_k^2} \bigg[ \int_{s}^L \e^{(-\kappa_o \tau - \ah_k \e^{i 2 \pi k \tau/L})/\phi^*} \ \d \tau \bigg] \d \ah_k, \\
+    =& \ \frac{1}{\Z} \prod_{k=-\infty}^\infty \int_{s}^L \bigg[ \int_{-\infty}^{\infty} \e^{-\frac{\beta B k^2}{L} 4\pi^2 \ah_k^2  - \ah_k \e^{i 2 \pi k \tau/L}/\phi^*} \ \d \ah_k \bigg]  \e^{-\kappa_o \tau/\phi^*} \ \d \tau.
+\end{align}
+We can evaluate the integral inside the square brackets as
+\[
+    \int_{-\infty}^\infty \e^{-\alpha \ah^2 -\gamma \ah} \ \d \ah = \e^{-\frac{\gamma^2}{4\alpha}}\int_{-\infty}^\infty \e^{-\alpha(\ah + \frac{\gamma}{2 \alpha})^2} \ \d \ah
+    = \sqrt{\frac{\pi}{\alpha}} \e^{-\frac{\gamma^2}{4\alpha}}.
+\]
+We then get
+\begin{align}
+    v_{\rm int}(s) =& \ \sqrt{\frac{\pi L}{\beta B}}  \frac{1}{\Z} \prod_{k=-\infty}^\infty \frac{1}{2\pi k}  \int_{s}^L \e^{-\gamma(k, \tau)^2/4\alpha} \e^{-\kappa_o \tau/\phi^*} \ \d \tau.
+\end{align}
+where $\gamma(k, \tau) = \e^{i 2 \pi k \tau/L}/\phi^*, \alpha = \beta B k^2 4 \pi^2/L$. In the limit of small temperature,
+or large bending stiffness, $\alpha \gg 1$ and we can Taylor expand the integral to get
+\begin{align}
+    v_{\rm int}(s) =& \ \sqrt{\frac{\pi L}{\beta B}}  \frac{1}{\Z} \prod_{k=-\infty}^\infty \frac{1}{2\pi k}  \int_{s}^L \bigg[ 1 - \frac{\gamma(k, \tau)^2}{4\alpha} \bigg] \e^{-\kappa_o \tau/\phi^*} \ \d \tau.
+\end{align}
+From this we see that the leading order contribution is still
+\begin{align}
+    v_{\rm int}(s) =& \ \frac{\phi^*}{\kappa_o} \e^{-\kappa_o L/\phi^*} [ \e^{\kappa_o(L-s)/\phi^*} - 1].
+\end{align}
+
+\subsection{$v(\r, \theta)$ for $\pi_{\rm OU}(\r, \theta)$}
+We have seen already the dynamics of the OU process and we can write the policy $\pi_\text{OU}(\r, \theta)$ using the evolution
+of the orientation and position as
+\begin{align}
+    \theta^{t+1} =& \ \theta^t (1 - \mu \Delta t ) + \sqrt{2 D \Delta t} \zeta^t, \\
+    % \dot{\theta}(t) =& \ - \alpha \theta(t) + \sqrt{2 D} \zeta(t), \\
+    \langle \zeta^t \zeta^0 \rangle =& \ \delta(t), \\
+    \r^{t+1} =& \ \r^{t} + l \ph_\theta^t, \text{where} \ \ph_\theta^t = \{ \cos \theta^t, \sin \theta^t \}.
+    % \dot{\r}(t) =& \ v_o \ph
+\end{align}
+We have calculated the evolution of variance of the agent's trajectory from a straight line as a function of
+distance/time from the bifurcation point evolves as,
+\begin{align}
+    \psi(t) & = \frac{v_o^2 D}{\mu^3} \bigg[ 2 \mu t - \e^{-2 \mu t} + 4 \e^{-\mu t} - 3 \bigg].
+\end{align}
+where $\mu^{-1}$ is the time-scale of relaxation of the agent. The $n$-step variance of the agent is
+$\psi (t^*)$, where $t^* = n \Delta t$. Assuming that the agent reaching a distance $\sigma$ from the end-point A can reach the
+target, the probability that an agent will reach the target is given by $\P_{\rm OU}(||\r^{n\Delta t} - \r^*|| \leq \sigma)
+= \sigma/\psi(t^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ using the formula
+\[
+    v_{\rm OU}(\r, \theta) = \int_{0}^{t^*} \int \D[\theta(t)] \P_{\rm OU}[\theta(t)] R(t) \ \d t.
+\]
+Let us assume that the reward function for the OU process is $R(t) = \nu[1 - \Theta(||\r(t^*) - \r^*|| - \sigma)]$.
+From this we see that the value of $v_{\rm OU}(\r^c, \theta^c) = \sigma \nu/\psi(t^*)$.
+
+\section{Value function of combined policy}
+The total value function for the agent's policy is $v(\r, \theta) = v_{\rm int}(\r, \theta) + v_{\rm OU}(\r^c, \theta^c)$.
+The agent is trying to maximize this value function from a given state, $\r^t, \theta^t$. The final expression
+for the value function is
+\[
+    v(\r, \theta) = \frac{\sigma \nu}{\psi(t^*+t_f)} + \frac{\phi^*}{\kappa_o} \e^{-\kappa_o s^*/\phi^*} [ \e^{\kappa_o(s^*-s)/\phi^*} - 1],
+\]
+where $\psi(t) = \dfrac{v_o^2 D}{\mu^3} \bigg[ 2 \mu t - \e^{-2 \mu t} + 4 \e^{-\mu t} - 3 \bigg]$, $t_f$ is the time-taken to reach
+the region around the target location A. In this equation, the diffusion coefficient
+representing the fluctuations in the dynamics of the agent capturing the error in memory
+of target location A. We assume that the fluctuation $D$ is larger farther from the target location.
+
 % It is however difficult to evaluate the value function of this specific functional form of the policy.
 % Instead we move to a different form given by the Langevin dynamics of the orientation satisfying
 % the equation:

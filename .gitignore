@@ -3,6 +3,9 @@
 /LaTeX/*.out
 /LaTeX/*.log
 /LaTeX/*.pdf
+/LaTeX/innovate.pdf
+/LaTeX/*.blg
+/LaTeX/*.bbl
 /LaTeX/*.gz
 /LaTeX/*.fdb_latexmk
 /.DS_Store
