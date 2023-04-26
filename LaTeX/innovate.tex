@@ -81,6 +81,7 @@ citecolor   = greenish %Colour of citations
 \def\Z{\mathcal{Z}}
 \def\ah{\hat{a}}
 \def\theta{\vartheta}
+\def\H{\mathcal{H}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
 \newtcolorbox{myalgorithm}[2][]{%
@@ -219,13 +220,13 @@ This is the evolution of the famous Ornstein-Uhlenbeck process which has been ex
 and the evolution of the probability density can be solved exactly. The Fokker-Plack equation for
 its dynamics which provides the probability of a given state $\theta(t)$ i.e. $p(\theta, t)$, is given by
 \[
-    \frac{\partial p}{\partial t} = \alpha \frac{\partial(\theta p)}{\partial \theta }
-    + D \frac{\partial^2 p}{\partial \theta^2}
+    \frac{\partial \P}{\partial t} = \alpha \frac{\partial(\theta \P)}{\partial \theta }
+    + D \frac{\partial^2 \P}{\partial \theta^2}
 \]
 The dynamics of the angle relaxes to equilibrium angle $\theta = 0$ in the absence of fluctuations.
-The evolution of the mean is $\dot{h}(t) = - \alpha h(t)$ where $h(t) = \langle \theta(t) \rangle$
+The evolution of the mean is $\dot{h}(t) = - \alpha h(t)$ where $h(t) = \E [ \theta(t) ]$
 while the co-variance dynamics is given by $\dot{\zeta}(t) = -2\alpha \zeta(t) + 2D$ with
-$\zeta = \langle {(\theta(t) - h(t))}^2 \rangle = \langle \theta^2(t) \rangle - h{(t)}^2$.
+$\zeta = \E [  {(\theta(t) - h(t))}^2 ] = \E [  \theta^2(t) ] - h{(t)}^2$.
 
 The position of the agent evolves as $\dot{\r}(t) = v_o \ph(t)$. Under the assumption that the angle
 is small, we can write $\dot{\r}(t) = v_o (1, \theta)$. Thus we have $\yd (t) = v_o \theta$ which can
@@ -234,32 +235,32 @@ be used to rewrite the orientation equation as
     \ddot{y}(t) =& \ - \alpha \yd (t) + v_o\sqrt{2 D} \eta(t).
 \end{align}
 This second order equation needs to boundary condition. We require $y(0) = 0$ and $\yd (0) = 0$ which
-comes from setting the initial orientation to be 0. We are interested in the evolution of the mean and the variance of this SDE. Let $m(t)= \langle y(t) \rangle$
-where the averaging is the ensemble average (equivalently the average of the several trajectories of the
-same dynamics). The mean $m(t)$ evolves as
+comes from setting the initial orientation to be 0. We are interested in the evolution of the mean and
+the variance of this SDE. Let $m(t)= \E [  y(t) ]$ where the averaging is the ensemble average
+(equivalently the average of the several trajectories of the same dynamics). The mean $m(t)$ evolves as
 \begin{align}
     \ddot{m}(t) =& \ -\alpha \dot{m}(t).
 \end{align}
 By applying the above boundary condition, we can immediately see that $m(t) = 0$. Nevertheless, we are
-interested in the evolution of the standard deviation, $\beta(t) = \langle {[y(t) - m(t)]}^2 \rangle$.
+interested in the evolution of the standard deviation, $\beta(t) = \E [  {(y(t) - m(t))}^2 ]$.
 In order to derive an expression for that, we differentiate the definition once to get
 \begin{align*}
-    \dot{\beta}(t) =& \ 2 \langle \{ y(t) - m(t) \} \{ \yd(t) - \dot{m}(t) \} \rangle, \\
-    = & \ 2 \langle y \yd \rangle - 2 m \dot{m}, \\
-    = & \ 2 v_o [ \langle y \theta \rangle - m \dot{m}].
+    \dot{\beta}(t) =& \ 2 \E [ \{ y(t) - m(t) \} \{ \yd(t) - \dot{m}(t) \} ], \\
+    = & \ 2 \E [ y \yd ] - 2 m \dot{m}, \\
+    = & \ 2 v_o \{ \E [ y \theta ] - m \dot{m}\}.
 \end{align*}
-We can estimate $\langle y \theta \rangle$ as follows
+We can estimate $\E [ y \theta ]$ as follows
 \begin{align*}
-    \langle y \theta \rangle =& \ v_o \E \bigg[ \int_0^t \theta(s) \theta(t) \ \d s \bigg], \\
-    =& \ v_o  \int_0^t \langle\theta(t) \theta(s)\rangle \ \d s.
+    \E [ y \theta ] =& \ v_o \E \bigg[ \int_0^t \theta(s) \theta(t) \ \d s \bigg], \\
+    =& \ v_o  \int_0^t \E [ \theta(t) \theta(s) ] \ \d s.
 \end{align*}
 We know that for an OU process, 
 \[
-\langle\theta(t) \theta(s)\rangle = \frac{D}{\alpha} \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg].
+    \E [ \theta(t) \theta(s) ] = \frac{D}{\alpha} \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg].
 \]
 From this we see that
 \begin{align*}
-    \langle y \theta \rangle =& \ \frac{v_o D}{\alpha} \int_0^t  \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg] \ \d s, \\
+    \E [ y \theta ] =& \ \frac{v_o D}{\alpha} \int_0^t  \bigg[ \e^{-\alpha(t-s)}-\e^{-\alpha(t+s)} \bigg] \ \d s, \\
     =& \ \frac{v_o D}{\alpha^2} \bigg[ 1 - 2 \e^{-\alpha t} + \e^{-2 \alpha t}\bigg].
 \end{align*}
 We thus have the evolution of the co-variance of $y(t)$ as
@@ -387,25 +388,38 @@ From this we see that the leading order contribution is still
 We have seen already the dynamics of the OU process and we can write the policy $\pi_\text{OU}(\r, \theta)$ using the evolution
 of the orientation and position as
 \begin{align}
-    \theta^{t+1} =& \ \theta^t (1 - \alpha \Delta t ) + \sqrt{2 D} \eta^t \Delta t, \\
-    % \dot{\theta}(t) =& \ - \alpha \theta(t) + \sqrt{2 D} \eta(t), \\
-    \langle \eta^t \eta^0 \rangle =& \ \delta(t), \\
+    \theta^{t+1} =& \ \theta^t (1 - \mu \Delta t ) + \sqrt{2 D \Delta t} \zeta^t, \\
+    % \dot{\theta}(t) =& \ - \alpha \theta(t) + \sqrt{2 D} \zeta(t), \\
+    \langle \zeta^t \zeta^0 \rangle =& \ \delta(t), \\
     \r^{t+1} =& \ \r^{t} + l \ph_\theta^t, \text{where} \ \ph_\theta^t = \{ \cos \theta^t, \sin \theta^t \}.
     % \dot{\r}(t) =& \ v_o \ph
 \end{align}
 We have calculated the evolution of variance of the agent's trajectory from a straight line as a function of
-distance/time from the bifurcation point evolves as
+distance/time from the bifurcation point evolves as,
 \begin{align}
-    \psi(t) & = \frac{v_o^2 D}{\alpha^3} \bigg[ 2 \alpha t - \e^{-2 \alpha t} + 4 \e^{-\alpha t} - 3 \bigg].
+    \psi(t) & = \frac{v_o^2 D}{\mu^3} \bigg[ 2 \mu t - \e^{-2 \mu t} + 4 \e^{-\mu t} - 3 \bigg].
 \end{align}
-where $\alpha^{-1}$ is the time-scale of relaxation of the agent. The $n$-step variance of the agent is
-$\psi (n \Delta t)$. Assuming that the agent reaching a distance $\sigma$ from the end-point A can reach the
-target, the probability that an agent will reach the target is given by $\P{\rm OU}(A) = \sigma/\psi( n \Delta t)$.
-We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ using the formula
+where $\mu^{-1}$ is the time-scale of relaxation of the agent. The $n$-step variance of the agent is
+$\psi (t^*)$, where $t^* = n \Delta t$. Assuming that the agent reaching a distance $\sigma$ from the end-point A can reach the
+target, the probability that an agent will reach the target is given by $\P_{\rm OU}(||\r^{n\Delta t} - \r^*|| \leq \sigma)
+= \sigma/\psi(t^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ using the formula
 \[
-    v_{\rm OU}(\r, \theta) = \int_{s^c}^{s^*} \int \D[\theta(t)] \P[\theta(t)] R(t) \ \d t.
+    v_{\rm OU}(\r, \theta) = \int_{0}^{t^*} \int \D[\theta(t)] \P_{\rm OU}[\theta(t)] R(t) \ \d t.
 \]
-Let us assume that the reward function for the OU process is $R(s) = \nu \Theta(||\r(s^*) - \r^*|| - \sigma)$.
+Let us assume that the reward function for the OU process is $R(t) = \nu[1 - \Theta(||\r(t^*) - \r^*|| - \sigma)]$.
+From this we see that the value of $v_{\rm OU}(\r^c, \theta^c) = \sigma \nu/\psi(t^*)$.
+
+\section{Value function of combined policy}
+The total value function for the agent's policy is $v(\r, \theta) = v_{\rm int}(\r, \theta) + v_{\rm OU}(\r^c, \theta^c)$.
+The agent is trying to maximize this value function from a given state, $\r^t, \theta^t$. The final expression
+for the value function is
+\[
+    v(\r, \theta) = \frac{\sigma \nu}{\psi(t^*+t_f)} + \frac{\phi^*}{\kappa_o} \e^{-\kappa_o L^*/\phi^*} [ \e^{\kappa_o(L^*-v_ot)/\phi^*} - 1],
+\]
+where $\psi(t) = \dfrac{v_o^2 D}{\mu^3} \bigg[ 2 \mu t - \e^{-2 \mu t} + 4 \e^{-\mu t} - 3 \bigg]$, $t_f$ is the time-taken to reach
+the region around the target location A. In this equation, the diffusion coefficient
+representing the fluctuations in the dynamics of the agent capturing the error in memory
+of target location A. We assume that the fluctuation $D$ is larger farther from the target location.
 
 % It is however difficult to evaluate the value function of this specific functional form of the policy.
 % Instead we move to a different form given by the Langevin dynamics of the orientation satisfying
