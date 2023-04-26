@@ -217,7 +217,7 @@ can be written as a stochastic differential equation given by
     \langle \eta(t) \eta(0) \rangle =& \ \delta(t).
 \end{align}
 This is the evolution of the famous Ornstein-Uhlenbeck process which has been extremely well studied
-and the evolution of the probability density can be solved exactly. The Fokker-Plack equation for
+and the evolution of the probability density can be solved exactly. The Fokker-Planck equation for
 its dynamics which provides the probability of a given state $\theta(t)$ i.e. $p(\theta, t)$, is given by
 \[
     \frac{\partial \P}{\partial t} = \alpha \frac{\partial(\theta \P)}{\partial \theta }
@@ -414,7 +414,7 @@ The total value function for the agent's policy is $v(\r, \theta) = v_{\rm int}(
 The agent is trying to maximize this value function from a given state, $\r^t, \theta^t$. The final expression
 for the value function is
 \[
-    v(\r, \theta) = \frac{\sigma \nu}{\psi(t^*+t_f)} + \frac{\phi^*}{\kappa_o} \e^{-\kappa_o L^*/\phi^*} [ \e^{\kappa_o(L^*-v_ot)/\phi^*} - 1],
+    v(\r, \theta) = \frac{\sigma \nu}{\psi(t^*+t_f)} + \frac{\phi^*}{\kappa_o} \e^{-\kappa_o s^*/\phi^*} [ \e^{\kappa_o(s^*-s)/\phi^*} - 1],
 \]
 where $\psi(t) = \dfrac{v_o^2 D}{\mu^3} \bigg[ 2 \mu t - \e^{-2 \mu t} + 4 \e^{-\mu t} - 3 \bigg]$, $t_f$ is the time-taken to reach
 the region around the target location A. In this equation, the diffusion coefficient
