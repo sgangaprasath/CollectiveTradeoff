@@ -103,17 +103,50 @@ the environment is is represented by its position $\r^t=\{ r_x^t, r_y^t \}$ and 
 direction of motion i.e., its orientation $\ph^t = \{\cos(\theta^t), \sin(\theta^t)\}$, where $[\bullet]^t$ denotes the
 value of the variable at time-instant $t$. The agent can choose the action based on the measurements at each instant of time.
 
-\subsection*{Trail following behavior}
-Social insects such as ants communicate through pheromone or by antennation. As stigmergy is one of the fundamental
-mechanisms by which the collective coordinates and recruits new workers.
-it can make measurements about how far from the
-pheromone trail it is $\d\r(t)$ as well as the orientation of the trail, $\th(s, t)$.
-The action that it takes from these measurements is to align its orientation, $\ph(t)$
-along a direction that will take it towards the trail. We show in Fig.~\ref{fig:schm1}
-a schematic of the problem set up.The strategy used by the agent for tracking the pheromone
-trail will be to move along the direction given by $(\d \r/|\d \r| + \th)$ by a fixed
-length $h$. In order to identify the location along $\xst(s)$ where $\d \r$ intersects,
-we use the condition $\d\r(t) \perp \th(s,t)$.
+\subsection*{Trail following behavior for semi-circular trail}
+Social insects such as ants communicate either through pheromone or by antennation.
+As stigmergy is one of the fundamental mechanisms by which the collective coordinates
+and recruits new workers, we assume that the agent can follow the trail $\x^*(s)$.
+This intrinsic behavior is denoted by the policy $\pi_{\rm int}(\r)$ which provides the
+appropriate angle $\theta^t$ required to follow the trail when the agent is at location
+$\r^t$ after the measurment that the agent makes. In order to consider a specific trail
+of the initial pheromone trail, let us assume that the trail is a simple semi-circle with
+functional form $\xst(s) = \{ a \cos(s/a), a \sin(s/a) \}$. For this particular case,
+the policy can be explicitly written as
+\begin{align}
+    \text{Measurement: } \phi^{t} = & \ \tan^{-1} \bigg( \frac{r_y^t}{r_x^t} \bigg) + \zeta^t, \\
+    \text{Action: }\theta^{t} =& \ \frac{\pi}{2} + \phi^{t}, \\
+    \text{State update: } \r^{t+1} =& \ \r^t + l \ph^{t}.
+\end{align}
+where $\zeta^t$ is the fluctuation/error in the measurements that the agent makes, $l$ is the step-length
+of the agent. In the limit when the step-length is small, we can write the continuous version
+of the motion as $\dot{\r} = v_o \ph$. Without loss of generality, we can write this as
+$\d\r/\d s = \ph$ where $s = v_o t$ and we assume that the distribution of the orientation of the agent is distributed as though
+it is a worm-like chain polymer whose orientation distribution is given by
+\[
+    \P[\theta(s)] = \frac{1}{\mathcal{Z}}\exp{(-\beta E_b)}
+\]
+where the bending energy $E_b[\theta(s)] = B/2 \int_0^{s_c} (\theta'(s)-\kappa_o)^2 \ \d s$, fugacity
+$\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
+stiffness $B$ captures the constraint for the agent to move forward, $\beta$ is the effective
+temperature capturing the fluctuations in the trajectory of agent. We also have
+boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o = a^{-1}$.
+We are interested in evaluating the value function of this policy $\pi_{\rm int}(\r)$
+denoted by $v_{\rm int}(\r^t)$ whose expression is
+\[
+    v_{\rm int}(\r) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| \r_t = \r \bigg].
+\]
+We can write this in path-integral form as
+\begin{align}
+    v_{\rm int}(\r) =& \ \sum_{k=t}^T \int \D[\theta(s)] \P[\theta(s)] \gamma^{k-t} R_{k+1}, \\
+    \approx& \ \int_{s}^{s_c} \int \D[\theta(s)] \P[\theta(s)] R(s) \ \d s
+\end{align}
+The reward itself is a function of the agent's azimuthal direction, $\phi(s) = \tan^{-1}(y(s)/x(s))$.
+Assuming that the reward has the function form $R(\phi) = \exp(-\phi/\phi^*)$, the leading order form of 
+the value function for this policy is
+\[
+    v_{\rm int}(\r) = \frac{\phi^*}{\kappa_o} [ \e^{-\kappa_os/\phi^*} - \e^{-\kappa_o s_c/\phi^*}].
+\]
 
 \begin{figure*}
     \centering
