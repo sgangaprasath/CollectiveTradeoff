@@ -102,6 +102,8 @@ This field is of course steady and its dynamics will be considered later in the 
 the environment is is represented by its position $\r^t=\{ r_x^t, r_y^t \}$ and the action it can take is to choose the
 direction of motion i.e., its orientation $\ph^t = \{\cos(\theta^t), \sin(\theta^t)\}$, where $[\bullet]^t$ denotes the
 value of the variable at time-instant $t$. The agent can choose the action based on the measurements at each instant of time.
+In this article we are interested in understanding how and when an agent can innovate from its innate behavior to follow
+pheromone trail to explore the environment and find novel solutions to the navigation problem. 
 
 \subsection*{Trail following behavior for semi-circular trail}
 Social insects such as ants communicate either through pheromone or by antennation.
@@ -126,13 +128,16 @@ it is a worm-like chain polymer whose orientation distribution is given by
 \[
     \P[\theta(s)] = \frac{1}{\mathcal{Z}}\exp{(-\beta E_b)}
 \]
-where the bending energy $E_b[\theta(s)] = B/2 \int_0^{s_c} (\theta'(s)-\kappa_o)^2 \ \d s$, fugacity
-$\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
+where the bending energy $E_b[\theta(s)] = B/2 \int_0^{s_c} (\theta'(s)-\kappa_o)^2 \ \d s$, the partition
+function $\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
 stiffness $B$ captures the constraint for the agent to move forward, $\beta$ is the effective
 temperature capturing the fluctuations in the trajectory of agent. We also have
-boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o = a^{-1}$.
-We are interested in evaluating the value function of this policy $\pi_{\rm int}(\r)$
-denoted by $v_{\rm int}(\r^t)$ whose expression is
+boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o = a^{-1}$. Here $s_c$ is the coordinate
+along the semi-circle at which the agent bifurcates towards the target location A using a new trajectory.
+Our motivation is to identify this location using the Bellman equation which will be discussed later.
+Now in order to evaluate the quality of the intrinsic policy we introduce the notion of value function
+of this policy $\pi_{\rm int}(\r)$,denoted by $v_{\rm int}(\r^t)$. The value function provides the cummulative
+future reward that the agent will acquire when following the policy $\pi_{\rm int}(\r)$. This can be written as
 \[
     v_{\rm int}(\r) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| \r_t = \r \bigg].
 \]
@@ -257,6 +262,7 @@ while the variance in $y(t)$ is $\beta(t^*) \approx 2v_o D c/\alpha^2$.
 % \begin{align*}
 %     \ddot{\beta}(t) =& \ 2 [ v_o \langle (\yd \theta + y \dot{\theta} \rangle - \dot{m}^2 - m \ddot{m}]
 % \end{align*}
+
 
 \section{Evaluating value function of policies}
 We are at a stage where we can solve the speed/distance-accuracy trade-off for the an agent trying
