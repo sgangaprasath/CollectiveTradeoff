@@ -95,35 +95,18 @@ For later...
 
 %\pacs{Valid PACS appear here}
 \maketitle
-\section{2D grid world}
-Let us say an agent has an intrinsic behavior to follow a herd or a trail
-laid by other ants or a flock of birds. All the agents simply following this
-herd following behavior will not result in new solutions. Agents often have
-to innovate and find new solutions either because the trails are not available
-anymore or because you know a better route (influence of history) or perturbations
-(intrinsic or environmental) can throw you off trails and you have to find new solutions.
-We are interested in understanding the role of intrinsic behavior on the dynamics of innovation.
+\section{Problem setting}
+Let us consider a trail of pheromone $\x^*(s)$ representing the position in 2-D coordinates and parameterized by the
+arc-length $s$. The concentration of pheromone is considered continuous along this curve and is given by $c(\x) = c_o \delta(\x-\x^*(s))$.
+This field is of course steady and its dynamics will be considered later in the article. The state of the agent/ant in
+the environment is is represented by its position $\r^t=\{ r_x^t, r_y^t \}$ and the action it can take is to choose the
+direction of motion i.e., its orientation $\ph^t = \{\cos(\theta^t), \sin(\theta^t)\}$, where $[\bullet]^t$ denotes the
+value of the variable at time-instant $t$. The agent can choose the action based on the measurements at each instant of time.
 
-We will start by implementing an agent trying to optimally traverse from point
-A to point B in a 2D grid world. The steps involved in traditional reinforcement
-learning based on SARSA algorithm involves essentially 2-steps: $(i)$ action-value
-function update, $(ii)$ policy update. The action-value update equation in on-policy SARSA is given by
-\begin{align}
-Q_\pi(s_t, a_t) \leftarrow & \ Q_\pi(s_t, a_t) \nonumber \\
-& \ + \alpha \{ r_{t+1} + \gamma Q_\pi(s_{t+1}, a_{t+1}) - Q_\pi(s_t, a_t) \}
-\end{align}
-while the policy update is given by
-\[
-\pi(s) = \argmax_a Q(s, a).
-\]
-
-\section{Trail following behavior}
-Consider a trail of pheromone $\x^*(s)$ represented by arc-length parameterization $s$.
-The concentration field in 2D is then given by $c(\x) = c_o \delta(\x-\x^*(s))$.
-This filed of course is assumed to be steady but can be made time-dependent by simply adding a decay time-scale $\tau$ to get: $c(\x, t) = c_o \delta(\x-\x^*(s)) \e^{-t/\tau}$. We can immediately evaluate some of the properties of the curve $\x^*(s)$ which will come in handy soon: $\th(s) = \d \x^*(s)/\d s = \{ \cos \psi(s), \sin \psi(s) \}$ and $\nh(s) = \{ \sin \psi(s), \cos \psi(s) \}$. As we can see the entire curve $\x ^*(s)$ can be represented only using $\psi(s)$ up to global translations and rotations, which is a well known property of curves in 2D.
-
-The state of the agent/ant in our problem is represented by its coordinates
-$\r(t)=\{ r_x(t), r_y(t) \}$ and it can make measurements about how far from the
+\subsection*{Trail following behavior}
+Social insects such as ants communicate through pheromone or by antennation. As stigmergy is one of the fundamental
+mechanisms by which the collective coordinates and recruits new workers.
+it can make measurements about how far from the
 pheromone trail it is $\d\r(t)$ as well as the orientation of the trail, $\th(s, t)$.
 The action that it takes from these measurements is to align its orientation, $\ph(t)$
 along a direction that will take it towards the trail. We show in Fig.~\ref{fig:schm1}
