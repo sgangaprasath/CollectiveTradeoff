@@ -102,6 +102,9 @@ This field is of course steady and its dynamics will be considered later in the 
 the environment is is represented by its position $\r^t=\{ r_x^t, r_y^t \}$ and the action it can take is to choose the
 direction of motion i.e., its orientation $\ph^t = \{\cos(\theta^t), \sin(\theta^t)\}$, where $[\bullet]^t$ denotes the
 value of the variable at time-instant $t$. The agent can choose the action based on the measurements at each instant of time.
+In this article we are interested in understanding the dynamics of agents that need to innovate in order to find new
+trails over which the collective travels. In order to understand the dynamics, we assume that the agent has already
+traveled along the trajectory $\x^*(s)$ once before.
 In this article we are interested in understanding how and when an agent can innovate from its innate behavior to follow
 pheromone trail to explore the environment and find novel solutions to the navigation problem. 
 
@@ -158,6 +161,10 @@ the value function for this policy is
     \includegraphics[width=\textwidth]{./figs/schematic.pdf}\label{fig:schm1}
     \caption{Schematic of setup}
 \end{figure*}
+
+\subsection*{Search strategy post bifurcation}
+After the agent leaves the trail trajectory at $\r(s_c)$, the agent needs to reach the target A.
+
 
 \subsection{Semi-circular trail}
 For the problem at hand, we will considering a semi-circular trail whose coordinates can be
