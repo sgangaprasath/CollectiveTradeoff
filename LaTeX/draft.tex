@@ -81,6 +81,8 @@ citecolor   = greenish %Colour of citations
 \def\theta{\vartheta}
 \def\H{\mathcal{H}}
 \DeclareMathOperator*{\argmax}{arg\,max}
+\def\OU{\rm OU}
+\def\intP{\rm int}
 
 \begin{document}
 \title{Dynamics of innovation in stigmergic collectives}
@@ -103,15 +105,16 @@ the environment is is represented by its position $\r^t=\{ r_x^t, r_y^t \}$ and 
 direction of motion i.e., its orientation $\ph^t = \{\cos(\theta^t), \sin(\theta^t)\}$, where $[\bullet]^t$ denotes the
 value of the variable at time-instant $t$. The agent can choose the action based on the measurements at each instant of time.
 In this article we are interested in understanding the dynamics of agents that need to innovate in order to find new
-trails over which the collective travels. In order to understand the dynamics, we assume that the agent has already
-traveled along the trajectory $\x^*(s)$ once before.
-In this article we are interested in understanding how and when an agent can innovate from its innate behavior to follow
-pheromone trail to explore the environment and find novel solutions to the navigation problem. 
+trails over which the collective travels.
 
 \subsection*{Trail following behavior for semi-circular trail}
 Social insects such as ants communicate either through pheromone or by antennation.
 As stigmergy is one of the fundamental mechanisms by which the collective coordinates
 and recruits new workers, we assume that the agent can follow the trail $\x^*(s)$.
+In this article we are interested in understanding how and when an
+agent can innovate from its innate behavior to follow pheromone trails to explore the environment and find novel solutions
+to the navigation problem. In order to understand the dynamics of innovation, we assume that the agent has already
+traversed the trajectory $\x^*(s)$ before.
 This intrinsic behavior is denoted by the policy $\pi_{\rm int}(\r)$ which provides the
 appropriate angle $\theta^t$ required to follow the trail when the agent is at location
 $\r^t$ after the measurment that the agent makes. In order to consider a specific trail
@@ -164,7 +167,75 @@ the value function for this policy is
 
 \subsection*{Search strategy post bifurcation}
 After the agent leaves the trail trajectory at $\r(s_c)$, the agent needs to reach the target A.
+Though the agent can take a variety of exploration strategies, we assume that the policy resembles
+an Ornstein-Uhlenbeck (OU) process. This explorative policy $\pi_{\OU}(\r)$ can be written through $\P(\theta, t)$
+the probability that the agent will take a particular angle $\theta$ at time $t$ or distance $s$. However since the orientation of the
+agent is dependent on $\r(s_c)$, the angle between agent location $\r(s_c)$ to target A can be denoted
+as $\phi$ and $\theta=\phi+\varphi$ where $\varphi$ is the fluctuation around this orientation that follows
+an OU-process. The probability $\P(\varphi, s)$ can then be written as
+\[
+    \frac{\partial \P}{\partial s} = \frac{\nu}{v_o} \frac{\partial(\varphi \P)}{\partial \varphi }
+    + \frac{D}{v_o} \frac{\partial^2 \P}{\partial \varphi^2}
+\]
+where $\nu$ is the time-scale associated with relaxation of the agent's orientation to the target $\phi$
+and $D$ represents the fluctuation in orientation, which we will soon assume to be large when $\r(s_c)$
+is farther from the target A. We assume that the agent reaching a distance $\sigma$ from the end-point A can reach the
+target and thus the reward is a function of the propagation of variance in agent's position towards the
+target. Instead of solving the partial differential equation for $\P(\varphi, s)$, we can evaluate the
+evolution of the variance of agent's position $\r(s)$ as it marches close to the target.
 
+Assuming that the agent reaching a distance $\sigma$ from the end-point A can reach the
+target, the probability that an agent will reach the target is given by $\P_{\rm OU}(||\r^{n\Delta t} - \r^*|| \leq \sigma)
+= \sigma/\psi(t^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ using the formula
+\[
+    v_{\rm OU}(\r, \theta) = \int_{0}^{t^*} \int \D[\theta(t)] \P_{\rm OU}[\theta(t)] R(t) \ \d t.
+\]
+Let us assume that the reward function for the OU process is $R(t) = \nu[1 - \Theta(||\r(t^*) - \r^*|| - \sigma)]$.
+From this we see that the value of $v_{\rm OU}(\r^c, \theta^c) = \sigma \nu/\psi(t^*)$.
+
+%\sectionfont{\fontsize{15}{15}\selectfont}
+%\subsectionfont{\fontsize{15}{15}\selectfont}
+%\subsubsectionfont{\fontsize{15}{15}\selectfont}
+\large
+\widetext
+\clearpage
+\onecolumngrid
+\begin{center}
+\textbf{\large Supplemental Information for ``Branching in soft gels''}\\[.2cm]
+S  Ganga  Prasath$^{1, *}$, Aditi Chakrabarti$^{1, *}$,  and  L  Mahadevan$^{1, 2, 3, 4}$\\[.1cm]
+{\small \itshape ${}^1$School of Engineering and Applied Sciences, Harvard University, Cambridge MA 02138.\\
+${}^2$Department of Physics, Harvard University, Cambridge MA 02138.\\
+${}^3$Center  for  Brain  Science,  Harvard  University,  Cambridge,  MA  02138.\\
+${}^4$Department of Organismic and Evolutionary Biology, Harvard University, Cambridge 02138
+}
+\end{center}
+%%%%%%%%% Merge with supplemental materials %%%%%%%%%%
+%%%%%%%%% Prefix a "S" to all equations, figures, tables and reset the counter %%%%%%%%%%
+\setcounter{equation}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{page}{1}
+\makeatletter
+% \renewcommand{\theequation}{S\arabic{equation}}
+% \renewcommand{\thefigure}{S\arabic{figure}}
+% \renewcommand{\bibnumfmt}[1]{[S#1]}
+%\renewcommand{\citenumfont}[1]{S#1}
+%%%%%%%%% Prefix a "S" to all equations, figures, tables and reset the counter %%%%%%%%%%
+\linespread{1.5}
+% \setstretch{1.5}
+
+%%%%%%%%% Prefix a "S" to all equations, figures, tables and reset the counter %%%%%%%%%%
+%\renewcommand{\bibnumfmt}[1]{[S#1]}
+%\renewcommand{\citenumfont}[1]{S#1}
+%\renewcommand{\thesection}[1]{S#1\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}%
+\renewcommand{\thesection}{S\arabic{section}}
+%\renewcommand{\thesubsection}{SS\arabic{subsection}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+%\renewcommand{\thesubsection}{SS\arabic{subsection}{}}
+\renewcommand{\thesubsection}{\roman{subsection}{}}
+%\renewcommand{\thesubsubsection}{(\roman{subsubsection}{})}
 
 \subsection{Semi-circular trail}
 For the problem at hand, we will considering a semi-circular trail whose coordinates can be
