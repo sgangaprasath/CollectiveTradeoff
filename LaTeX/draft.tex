@@ -83,6 +83,7 @@ citecolor   = greenish %Colour of citations
 \DeclareMathOperator*{\argmax}{arg\,max}
 \def\OU{\rm OU}
 \def\intP{\rm int}
+\def\ebh{\hat{\mathbf{e}}}
 
 \begin{document}
 \title{Dynamics of innovation in stigmergic collectives}
@@ -134,8 +135,8 @@ it is a worm-like chain polymer whose orientation distribution is given by
 \[
     \P[\theta(s)] = \frac{1}{\mathcal{Z}}\exp{(-\beta E_b)}
 \]
-where the bending energy $E_b[\theta(s)] = B/2 \int_0^{s_c} (\theta'(s)-\kappa_o)^2 \ \d s$, the partition
-function $\mathcal{Z} = \int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
+where we define a bending energy for the trajectory captured by the agent's orientation as $E_b[\theta(s)]~=~B/2 \int_0^{s_c} (\theta'(s)-\kappa_o)^2~\d s$, the partition
+function $\mathcal{Z}~=~\int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
 stiffness $B$ captures the constraint for the agent to move forward, $\beta$ is the effective
 temperature capturing the fluctuations in the trajectory of agent. We also have
 boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o = a^{-1}$. Here $s_c$ is the coordinate
@@ -182,16 +183,23 @@ and $D$ represents the fluctuation in orientation, which we will soon assume to 
 is farther from the target A. We assume that the agent reaching a distance $\sigma$ from the end-point A can reach the
 target and thus the reward is a function of the propagation of variance in agent's position towards the
 target. Instead of solving the partial differential equation for $\P(\varphi, s)$, we can evaluate the
-evolution of the variance of agent's position $\r(s)$ as it marches close to the target.
-
-Assuming that the agent reaching a distance $\sigma$ from the end-point A can reach the
-target, the probability that an agent will reach the target is given by $\P_{\rm OU}(||\r^{n\Delta t} - \r^*|| \leq \sigma)
-= \sigma/\psi(t^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ using the formula
+evolution of the variance of agent's position $\r(s)$ as it marches close to the target. Let $\ebh_\phi$
+denote the orientation of the agent from $\r(s_c)$ to the target A. We can write the evolution of the variance
+along $\ebh_\perp$ i.e. $\psi(s)=\E[r^2_\perp(s)]$ as $\d{\psi}(s)/\d s = 2 \E [ r_\perp(s) \varphi ]$ for $s>s_c$.
+We can evaluate this evolution to get
+\begin{align}
+    \psi(s) - \psi(s_c) & = \frac{v_o^2 D}{\nu^3} \bigg[ \frac{2 \nu (s-s_c)}{v_o} - \e^{-2 \nu (s-s_c)/v_o} \nonumber \\
+    & \ + 4 \e^{-\nu (s-s_c)/v_o} - 3 \bigg].
+\end{align}
+Assuming that the agent reaching a distance $\sigma$ along $\ebh_\perp$ from the end-point A can reach the
+target (this is associated with the agent's capacity to sense the food source/target),
+the probability that an agent will reach the target is given by $\P(||r_\perp^{s^*} - r^*|| \leq \sigma)
+= \sigma/\psi(s^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ using the formula
 \[
-    v_{\rm OU}(\r, \theta) = \int_{0}^{t^*} \int \D[\theta(t)] \P_{\rm OU}[\theta(t)] R(t) \ \d t.
+    v_{\rm OU}(\r) = \int_{s_c}^{s^*} \int \D[\theta(s)] \P_{\rm OU}[\theta(s)] R(s) \ \d s.
 \]
-Let us assume that the reward function for the OU process is $R(t) = \nu[1 - \Theta(||\r(t^*) - \r^*|| - \sigma)]$.
-From this we see that the value of $v_{\rm OU}(\r^c, \theta^c) = \sigma \nu/\psi(t^*)$.
+Let us assume that the reward function for the OU process is $R(s) = \gamma[1 - \Theta(||r_\perp(s^*) - r^*|| - \sigma)]$.
+From this we see that the value of $v_{\rm OU}(\r^c) = \sigma \gamma/\psi(s^*)$.
 
 %\sectionfont{\fontsize{15}{15}\selectfont}
 %\subsectionfont{\fontsize{15}{15}\selectfont}
@@ -201,12 +209,9 @@ From this we see that the value of $v_{\rm OU}(\r^c, \theta^c) = \sigma \nu/\psi
 \clearpage
 \onecolumngrid
 \begin{center}
-\textbf{\large Supplemental Information for ``Branching in soft gels''}\\[.2cm]
-S  Ganga  Prasath$^{1, *}$, Aditi Chakrabarti$^{1, *}$,  and  L  Mahadevan$^{1, 2, 3, 4}$\\[.1cm]
-{\small \itshape ${}^1$School of Engineering and Applied Sciences, Harvard University, Cambridge MA 02138.\\
-${}^2$Department of Physics, Harvard University, Cambridge MA 02138.\\
-${}^3$Center  for  Brain  Science,  Harvard  University,  Cambridge,  MA  02138.\\
-${}^4$Department of Organismic and Evolutionary Biology, Harvard University, Cambridge 02138
+\textbf{\large Supplemental Information for ``Dynamics of innovation in stigmergic collectives''}\\[.2cm]
+S  Ganga  Prasath$^{1}$\\[.1cm]
+{\small \itshape ${}^1$ Department of Applied Mechanics, Indian Institute of Technology Madras, Chennai TN 600 036.
 }
 \end{center}
 %%%%%%%%% Merge with supplemental materials %%%%%%%%%%
