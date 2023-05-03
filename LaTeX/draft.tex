@@ -98,57 +98,71 @@ For later...
 
 %\pacs{Valid PACS appear here}
 \maketitle
+Collectives in the wild often have to come up with novel solutions to problems either because
+of uncertainties in the environment that demand new solution or due to high demands in the colony that
+introduces a pressure to innovate. Ants, for egs., use stigmergy to recruit more
+foragers to an identified food source by laying down pheromone along the trajectory they have taken towards the food source.
+Even with pre-treaded paths in place, agents still have to explore to find
+better solutions towards the food source if the demands of the colony are not met.
+In this article, we probe the question of when and how collectives can innovate to find novel solutions
+trajectories for foraging using stigmergy.
+
 \section{Problem setting}
-Let us consider a trail of pheromone $\x^*(s)$ representing the position in 2-D coordinates and parameterized by the
+Social insects such as ants communicate either through pheromone or by antennation. Let us consider a trail of pheromone $\x^*(s)$ representing the position in 2-D coordinates and parameterized by the
 arc-length $s$. The concentration of pheromone is considered continuous along this curve and is given by $c(\x) = c_o \delta(\x-\x^*(s))$.
 This field is of course steady and its dynamics will be considered later in the article. The state of the agent/ant in
 the environment is is represented by its position $\r^t=\{ r_x^t, r_y^t \}$ and the action it can take is to choose the
 direction of motion i.e., its orientation $\ph^t = \{\cos(\theta^t), \sin(\theta^t)\}$, where $[\bullet]^t$ denotes the
-value of the variable at time-instant $t$. The agent can choose the action based on the measurements at each instant of time.
-In this article we are interested in understanding the dynamics of agents that need to innovate in order to find new
-trails over which the collective travels.
+value of the variable at time-instant $t$. The agent chooses its action based on the measurement at each time instant
+which in this case is the concentration of pheromone, $c(\x)$.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\textwidth]{./figs/schematic.pdf}\label{fig:schm1}
+    \caption{Schematic of setup}
+\end{figure*}
 
 \subsection*{Trail following behavior for semi-circular trail}
-Social insects such as ants communicate either through pheromone or by antennation.
-As stigmergy is one of the fundamental mechanisms by which the collective coordinates
-and recruits new workers, we assume that the agent can follow the trail $\x^*(s)$.
-In this article we are interested in understanding how and when an
-agent can innovate from its innate behavior to follow pheromone trails to explore the environment and find novel solutions
-to the navigation problem. In order to understand the dynamics of innovation, we assume that the agent has already
-traversed the trajectory $\x^*(s)$ before.
+
+We know that stigmergy is one of the fundamental mechanisms by which the collective coordinates
+and recruits new workers. With that being the case, the agent can follow the trail $\x^*(s)$ by making
+measurements along its motion trajectory. Since we are interested in understanding how and when an
+agent can innovate from its innate behavior of following pheromone trails to explore the environment and find novel solutions
+to the navigation problem, we assume that the agent has already traversed the trajectory $\x^*(s)$ before.
 This intrinsic behavior is denoted by the policy $\pi_{\rm int}(\r)$ which provides the
 appropriate angle $\theta^t$ required to follow the trail when the agent is at location
-$\r^t$ after the measurment that the agent makes. In order to consider a specific trail
-of the initial pheromone trail, let us assume that the trail is a simple semi-circle with
-functional form $\xst(s) = \{ a \cos(s/a), a \sin(s/a) \}$. For this particular case,
-the policy can be explicitly written as
+$\r^t$ after the measurment that the agent makes. We consider the trail to be a simple semi-circle
+with functional form $\xst(s) = \{ a \cos(s/a), a \sin(s/a) \}$ (see Fig.~\ref{fig:schm1}$(b)$). For this particular case,
+the intrinsic trail following policy can be explicitly written as
 \begin{align}
     \text{Measurement: } \phi^{t} = & \ \tan^{-1} \bigg( \frac{r_y^t}{r_x^t} \bigg) + \zeta^t, \\
     \text{Action: }\theta^{t} =& \ \frac{\pi}{2} + \phi^{t}, \\
     \text{State update: } \r^{t+1} =& \ \r^t + l \ph^{t}.
 \end{align}
-where $\zeta^t$ is the fluctuation/error in the measurements that the agent makes, $l$ is the step-length
+where $\zeta^t$ is the noise/error in the agent's measurement, $l$ is the step-length
 of the agent. In the limit when the step-length is small, we can write the continuous version
 of the motion as $\dot{\r} = v_o \ph$. Without loss of generality, we can write this as
-$\d\r/\d s = \ph$ where $s = v_o t$ and we assume that the distribution of the orientation of the agent is distributed as though
-it is a worm-like chain polymer whose orientation distribution is given by
+$\d\r/\d s = \ph$ where $s = v_o t$. Moreover when the orientation of the agent
+along its trajectory is distributed as though it were a worm-like chain polymer,
+the functional form of orientation distribution is
 \[
-    \P[\theta(s)] = \frac{1}{\mathcal{Z}}\exp{(-\beta E_b)}
+    \P[\theta(s)] = \frac{1}{\mathcal{Z}}\exp{(-\beta E_b)},
 \]
 where we define a bending energy for the trajectory captured by the agent's orientation as $E_b[\theta(s)]~=~B/2 \int_0^{s_c} (\theta'(s)-\kappa_o)^2~\d s$, the partition
 function $\mathcal{Z}~=~\int \mathcal{D}[\theta(s)] \exp\{ {-\beta E_b[\theta(s)]} \}$ and the bending
-stiffness $B$ captures the constraint for the agent to move forward, $\beta$ is the effective
+stiffness $B$ captures the constraint for the agent to move forward towards the target A (ref Fig.~\ref{fig:schm1}$(b)$), $\beta$ is the effective
 temperature capturing the fluctuations in the trajectory of agent. We also have
-boundary conditions $\theta(0) = \pi/2$ and $\theta'(0) = \kappa_o = a^{-1}$. Here $s_c$ is the coordinate
-along the semi-circle at which the agent bifurcates towards the target location A using a new trajectory.
+boundary conditions $\theta(0) = \pi/2$ (due to initial orientation of the agent) and $\theta'(0) = \kappa_o = a^{-1}$ (due to curvature of the trail).
+Here $s_c$ is the coordinate along the semi-circle at which the agent bifurcates towards the target location A using a new trajectory.
 Our motivation is to identify this location using the Bellman equation which will be discussed later.
 Now in order to evaluate the quality of the intrinsic policy we introduce the notion of value function
-of this policy $\pi_{\rm int}(\r)$,denoted by $v_{\rm int}(\r^t)$. The value function provides the cummulative
-future reward that the agent will acquire when following the policy $\pi_{\rm int}(\r)$. This can be written as
+of this policy $\pi_{\rm int}(\r)$, denoted by $v_{\rm int}(\r)$. The value function provides the cummulative
+future reward that the agent will acquire from location $\r$ at time $t$
+when following the policy $\pi_{\rm int}(\r)$. This can be written as
 \[
     v_{\rm int}(\r) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| \r_t = \r \bigg].
 \]
-We can write this in path-integral form as
+We can write this in path-integral form as (with $\gamma = 1$)
 \begin{align}
     v_{\rm int}(\r) =& \ \sum_{k=t}^T \int \D[\theta(s)] \P[\theta(s)] \gamma^{k-t} R_{k+1}, \\
     \approx& \ \int_{s}^{s_c} \int \D[\theta(s)] \P[\theta(s)] R(s) \ \d s
@@ -157,31 +171,28 @@ The reward itself is a function of the agent's azimuthal direction, $\phi(s) = \
 Assuming that the reward has the function form $R(\phi) = \exp(-\phi/\phi^*)$, the leading order form of 
 the value function for this policy is
 \[
-    v_{\rm int}(\r) = \frac{\phi^*}{\kappa_o} [ \e^{-\kappa_os/\phi^*} - \e^{-\kappa_o s_c/\phi^*}].
+    v_{\rm int}(\r) = \frac{\phi^*}{\kappa_o} [ \e^{-\kappa_o s/\phi^*} - \e^{-\kappa_o s_c/\phi^*}].
 \]
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=\textwidth]{./figs/schematic.pdf}\label{fig:schm1}
-    \caption{Schematic of setup}
-\end{figure*}
 
 \subsection*{Search strategy post bifurcation}
 After the agent leaves the trail trajectory at $\r(s_c)$, the agent needs to reach the target A.
 Though the agent can take a variety of exploration strategies, we assume that the policy resembles
-an Ornstein-Uhlenbeck (OU) process. This explorative policy $\pi_{\OU}(\r)$ can be written through $\P(\theta, t)$
-the probability that the agent will take a particular angle $\theta$ at time $t$ or distance $s$. However since the orientation of the
-agent is dependent on $\r(s_c)$, the angle between agent location $\r(s_c)$ to target A can be denoted
-as $\phi$ and $\theta=\phi+\varphi$ where $\varphi$ is the fluctuation around this orientation that follows
-an OU-process. The probability $\P(\varphi, s)$ can then be written as
+an Ornstein-Uhlenbeck (OU) process in the agent's orientation. This fits well with the behavior of an insect such as an ant because
+ants often explore using their orientaiton after making measurements with their antennae.
+This explorative policy $\pi_{\OU}(\r)$ can be written through $\P(\theta, t)$
+the probability that the agent will take a particular angle $\theta$ at time $t$ or equivalently at distance $s$.
+However, since the orientation of the agent is dependent on $\r(s_c)$, the angle between agent location $\r(s_c)$
+to target A can be denoted as $\phi$ and $\theta=\phi+\varphi$ where $\varphi$ is the fluctuation around this
+orientation that follows an OU-process. The probability $\P(\varphi, s)$ can then be written as
 \[
     \frac{\partial \P}{\partial s} = \frac{\nu}{v_o} \frac{\partial(\varphi \P)}{\partial \varphi }
     + \frac{D}{v_o} \frac{\partial^2 \P}{\partial \varphi^2}
 \]
 where $\nu$ is the time-scale associated with relaxation of the agent's orientation to the target $\phi$
 and $D$ represents the fluctuation in orientation, which we will soon assume to be large when $\r(s_c)$
-is farther from the target A. We assume that the agent reaching a distance $\sigma$ from the end-point A can reach the
-target and thus the reward is a function of the propagation of variance in agent's position towards the
+is farther from the target A. Often in navigating insects, agents can quickly detect food source when they
+are close to the food source. We capture this by assuming that after reaching a distance $\sigma$ from the end-point A,
+agents can reach the target and thus the reward is a function only of the variance in agent's position towards the
 target. Instead of solving the partial differential equation for $\P(\varphi, s)$, we can evaluate the
 evolution of the variance of agent's position $\r(s)$ as it marches close to the target. Let $\ebh_\phi$
 denote the orientation of the agent from $\r(s_c)$ to the target A. We can write the evolution of the variance
@@ -191,15 +202,27 @@ We can evaluate this evolution to get
     \psi(s) - \psi(s_c) & = \frac{v_o^2 D}{\nu^3} \bigg[ \frac{2 \nu (s-s_c)}{v_o} - \e^{-2 \nu (s-s_c)/v_o} \nonumber \\
     & \ + 4 \e^{-\nu (s-s_c)/v_o} - 3 \bigg].
 \end{align}
-Assuming that the agent reaching a distance $\sigma$ along $\ebh_\perp$ from the end-point A can reach the
-target (this is associated with the agent's capacity to sense the food source/target),
-the probability that an agent will reach the target is given by $\P(||r_\perp^{s^*} - r^*|| \leq \sigma)
-= \sigma/\psi(s^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ using the formula
+As already mentioned, the agent reaching a distance $\sigma$ along $\ebh_\perp$ from the end-point A can reach the
+target, the probability that an agent will reach the target is given by $\P(||r_\perp^{s^*} - r^*|| \leq \sigma)
+= \sigma/\psi(s^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ as
 \[
     v_{\rm OU}(\r) = \int_{s_c}^{s^*} \int \D[\theta(s)] \P_{\rm OU}[\theta(s)] R(s) \ \d s.
 \]
-Let us assume that the reward function for the OU process is $R(s) = \gamma[1 - \Theta(||r_\perp(s^*) - r^*|| - \sigma)]$.
-From this we see that the value of $v_{\rm OU}(\r^c) = \sigma \gamma/\psi(s^*)$.
+The reward function for the OU process takes a simple form $R(s) = \mu[1 - \Theta(||r_\perp(s^*) - r^*|| - \sigma)]$,
+which simply means that the agent reaching with a distance $\sigma$ gets a reward $\mu$.
+From this we see that the value of $v_{\rm OU}(\r^c) = \sigma \mu/\psi(s^*)$.
+
+\section*{Value function of combined policy}
+The total value function for the agent's policy is $v(\r, \theta) = v_{\rm int}(\r, \theta) + v_{\rm OU}(\r^c, \theta^c)$.
+The agent is trying to maximize this value function from a given state, $\r^t, \theta^t$. The final expression
+for the value function is
+\[
+    v(\r; s_c, D) = \frac{\sigma \mu}{\psi(s^*; s_c, D)} + \frac{\phi^*}{\kappa_o} [ \e^{-\kappa_os/\phi^*} - \e^{-\kappa_o s_c/\phi^*}],
+\]
+the region around the target location A. In this equation, the diffusion coefficient
+representing the fluctuations in the dynamics of the agent capturing the error in memory
+of target location A. We assume that the fluctuation $D$ is larger farther from the target location.
+
 
 %\sectionfont{\fontsize{15}{15}\selectfont}
 %\subsectionfont{\fontsize{15}{15}\selectfont}
