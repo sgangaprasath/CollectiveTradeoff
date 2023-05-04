@@ -84,6 +84,7 @@ citecolor   = greenish %Colour of citations
 \def\OU{\rm OU}
 \def\intP{\rm int}
 \def\ebh{\hat{\mathbf{e}}}
+\def\Pe{\mathsf{Pe}}
 
 \begin{document}
 \title{Dynamics of innovation in stigmergic collectives}
@@ -202,8 +203,16 @@ We can evaluate this evolution to get
     \psi(s) - \psi(s_c) & = \frac{v_o^2 D}{\nu^3} \bigg[ \frac{2 \nu (s-s_c)}{v_o} - \e^{-2 \nu (s-s_c)/v_o} \nonumber \\
     & \ + 4 \e^{-\nu (s-s_c)/v_o} - 3 \bigg].
 \end{align}
-As already mentioned, the agent reaching a distance $\sigma$ along $\ebh_\perp$ from the end-point A can reach the
-target, the probability that an agent will reach the target is given by $\P(||r_\perp^{s^*} - r^*|| \leq \sigma)
+Before we move further with the calculation, it is cogent to work in non-dimensional numbers. In the OU-process
+we have two length-scales: $l \sim (v_o/\nu), (v_o/D)$, one due to \textit{inertia} and other due to \textit{diffusion}.
+The ratio of these two is nothing but the Peclet number, $\Pe = (D/\nu)$. We choose $l_\nu = (v_o/\nu)$ as the length-scale
+for further non-dimensionalization such that $s \rightarrow l_\nu \hat{s}$. We drop the hat in what follows and we get
+the non-dimensional variance, $\psi(s)$ (after setting $\psi(s_c) =0$) as a function of non-dimensional distance, $s$ as
+\begin{align}
+    \psi(s)& = \Pe \bigg[ 2 (s-s_c) - \e^{-2 (s-s_c)} + 4 \e^{-(s-s_c)} - 3 \bigg].
+\end{align}
+As already mentioned, the agent reaching a distance $\sigma$ (appropriately non-dimensionalized with $l_\nu$) along $\ebh_\perp$ from the end-point A
+can reach the target, the probability that an agent will reach the target is given by $\P(||r_\perp^{s^*} - r^*|| \leq \sigma)
 = \sigma/\psi(s^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ as
 \[
     v_{\rm OU}(\r) = \int_{s_c}^{s^*} \int \D[\theta(s)] \P_{\rm OU}[\theta(s)] R(s) \ \d s.
@@ -217,11 +226,18 @@ The total value function for the agent's policy is $v(\r, \theta) = v_{\rm int}(
 The agent is trying to maximize this value function from a given state, $\r^t, \theta^t$. The final expression
 for the value function is
 \[
-    v(\r; s_c, D) = \frac{\sigma \mu}{\psi(s^*; s_c, D)} + \frac{\phi^*}{\kappa_o} [ \e^{-\kappa_os/\phi^*} - \e^{-\kappa_o s_c/\phi^*}],
+    v(\r; s_c, D) = \frac{\sigma \mu}{\psi(s^*; s_c, \Pe)} + \frac{\phi^*}{\kappa} [ \e^{-\kappa s/\phi^*} - \e^{-\kappa s_c/\phi^*}],
 \]
-the region around the target location A. In this equation, the diffusion coefficient
-representing the fluctuations in the dynamics of the agent capturing the error in memory
-of target location A. We assume that the fluctuation $D$ is larger farther from the target location.
+where we have introduced the non-dimensional number, $\kappa = \kappa_o l_\nu = (\kappa_o v_o/\nu)$.
+In this equation, the Peclet number $\Pe$ captures the fluctuations in the dynamics of the agent
+associated with the error in the homing vector. We assume that this diffusion is larger farther
+from the target location and takes the functional form $\Pe \sim 1/s$. Moreover the reward that the agent recieves
+when the bifurcation point is close to the target location needs to be smaller and thus $\mu = (\pi\kappa^{-1} -s_c)$.
+One last detail that needs to be specified to make the value function complete is to specify $s^*$. It is straight
+forward to show that from $s_c$, the target A is a distance $2 \cos(s_c\kappa/2)\kappa^{-1}$ which makes
+$s^* = s_c + 2 \cos(s_c\kappa/2)\kappa^{-1}$.
+
+\subsection*{Single agent learning}
 
 
 %\sectionfont{\fontsize{15}{15}\selectfont}
