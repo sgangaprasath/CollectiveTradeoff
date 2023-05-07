@@ -206,23 +206,23 @@ We can evaluate this evolution to get
 Before we move further with the calculation, it is cogent to work in non-dimensional numbers. In the OU-process
 we have two length-scales: $l \sim (v_o/\nu), (v_o/D)$, one due to \textit{inertia} and other due to \textit{diffusion}.
 The ratio of these two is nothing but the Peclet number, $\Pe = (D/\nu)$. We choose $l_\nu = (v_o/\nu)$ as the length-scale
-for further non-dimensionalization such that $s \rightarrow l_\nu \hat{s}$. We drop the hat in what follows and we get
-the non-dimensional variance, $\psi(s)$ (after setting $\psi(s_c) =0$) as a function of non-dimensional distance, $s$ as
+for further non-dimensionalization such that $s \rightarrow l_\nu \hat{s}, t \rightarrow \nu^{-1} \hat{t}$. We drop the hat in what follows and we get
+the non-dimensional variance, $\psi(s)$ (after setting $\psi(s_c) =0$) as a function of non-dimensional distance $s$ to be
 \begin{align}
     \psi(s)& = \Pe \bigg[ 2 (s-s_c) - \e^{-2 (s-s_c)} + 4 \e^{-(s-s_c)} - 3 \bigg].
 \end{align}
 As already mentioned, the agent reaching a distance $\sigma$ (appropriately non-dimensionalized with $l_\nu$) along $\ebh_\perp$ from the end-point A
-can reach the target, the probability that an agent will reach the target is given by $\P(||r_\perp^{s^*} - r^*|| \leq \sigma)
+can reach the target, then the probability that an agent will reach the target is given by $\P(||r_\perp^{s^*} - r^*|| \leq \sigma)
 = \sigma/\psi(s^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ as
 \[
     v_{\rm OU}(\r) = \int_{s_c}^{s^*} \int \D[\theta(s)] \P_{\rm OU}[\theta(s)] R(s) \ \d s.
 \]
 The reward function for the OU process takes a simple form $R(s) = \mu[1 - \Theta(||r_\perp(s^*) - r^*|| - \sigma)]$,
-which simply means that the agent reaching with a distance $\sigma$ gets a reward $\mu$.
-From this we see that the value of $v_{\rm OU}(\r^c) = \sigma \mu/\psi(s^*)$.
+which simply means that the agent reaching within a distance $\sigma$ gets a reward $\mu$.
+From this we see that the value function from $\r$ to the end of the trajectory, $v_{\rm OU}(\r^c) = \sigma \mu/\psi(s^*)$.
 
 \section*{Value function of combined policy}
-The total value function for the agent's policy is $v(\r, \theta) = v_{\rm int}(\r, \theta) + v_{\rm OU}(\r^c, \theta^c)$.
+The total value function for the agent's policy is simply $v(\r, \theta) = v_{\rm int}(\r, \theta) + v_{\rm OU}(\r^c, \theta^c)$.
 The agent is trying to maximize this value function from a given state, $\r^t, \theta^t$. The final expression
 for the value function is
 \[
