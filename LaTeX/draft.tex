@@ -239,7 +239,17 @@ forward to show that from $s_c$, the target A is a distance $2 \cos(s_c\kappa/2)
 $s^* = s_c + 2 \cos(s_c\kappa/2)\kappa^{-1}$.
 
 \subsection*{Single agent learning}
+Now that we have the environment and the agent behavior laid out, we look at the learning dynamics of the agent
+when it has no feedback through pheromone but still tries to perform the distance-accuracy tradeoff. The agent can
+make this tradeoff by exploring the environment as well as exploiting its intrinsic ability to follow pheromone to
+accumulate reward. This is established through an $\epsilon$-greedy policy and we look at the evolution of the value
+function as the agent so learns by following this strategy.
 
+Mention that the TD(0)-learning results in
+\[
+    v(s_c) \leftarrow (1-\alpha) v(s_c) + \alpha r(s^*)
+\]
+as $v(s^*) = 0$.
 
 %\sectionfont{\fontsize{15}{15}\selectfont}
 %\subsectionfont{\fontsize{15}{15}\selectfont}
