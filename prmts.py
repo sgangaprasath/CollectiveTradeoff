@@ -5,7 +5,7 @@ class params():
     def __init__(self):
         super().__init__()
         self.nSteps = 800 #number of steps of each run
-        self.nEpchs = 2000 #number of epochs
+        self.nEpchs = 10000 #number of epochs
         self.a = 1.0 #radius of semi-circle
         self.nSc = int(0.1*self.nSteps) #number of steps of intrinsic policy
         
