@@ -32,7 +32,7 @@ def plotDef(rmax, p, xphm, yphm, phm):
     ax[1].set_xlabel(r'$t$',usetex=True, fontsize=label_size)
     ax[1].set_ylabel(r'$R(t)$',usetex=True,rotation=0, fontsize=label_size)
     ax[1].set_xlim([0., 10.])
-    ax[1].set_ylim([0.,1.0])
+    ax[1].set_ylim([0.,5.0])
 
     ax[1].xaxis.set_label_coords(0.5,-0.15)
     ax[1].yaxis.set_label_coords(-0.1,0.4)
@@ -41,7 +41,7 @@ def plotDef(rmax, p, xphm, yphm, phm):
     ax[1].spines["top"].set_visible(False)
     ax[1].spines["left"].set_position(("data", 0))
     ax[1].spines["bottom"].set_position(("data", 0))
-    ax[1].set_aspect(7)
+    ax[1].set_aspect(2)
 
     ax[2] = plt.subplot(133, projection='polar')
     ax[2].set_thetalim(0, np.pi)
@@ -143,22 +143,23 @@ def plotDef(rmax, p, xphm, yphm, phm):
     return fig, ax
 
 
-def plotDat(fig, ax, p, rxFull, ryFull, phxFull, phyFull, rwdFull, valFn):
+def plotDat(fig, ax, p, rxFull, ryFull, phxFull, phyFull, rwdFull, valFn, alph):
     # Plot data
     color = '#EE3984'
     lcolor = '#FFC708'
     global colors
     ax[0].scatter(rxFull, ryFull,
-            s=25,
+            s=15,
             color=color,
             # edgecolors='k',
             linewidth=0.5,
-            alpha=0.005,
+            alpha=alph/500,
             zorder=2)
     
     t = np.arange(np.size(rwdFull))*p.dt
     ax[1].plot(t, rwdFull,
-               alpha=0.1,
+            #    alpha=0.1,
+               alpha=alph/10,
                color=lcolor)
 
     n = 2*p.nPtn + 1
@@ -177,9 +178,9 @@ def plotDat(fig, ax, p, rxFull, ryFull, phxFull, phyFull, rwdFull, valFn):
     # R[-1] = R[0]
     # R[-2] = R[0]
     
-    ax[2].fill(phiPlt, R, color="C1", zorder=150, alpha=0.005)
-    ax[2].plot(phiPlt, R, color="white", zorder=200, linewidth=1.5, alpha=0.005)
-    ax[2].plot(phiPlt, R, color="C1", zorder=250, linewidth=1, alpha=0.005)
+    ax[2].fill(phiPlt, R, color="C1", zorder=150, alpha=alph/500)
+    ax[2].plot(phiPlt, R, color="white", zorder=200, linewidth=1.5, alpha=alph/500)
+    ax[2].plot(phiPlt, R, color="C1", zorder=250, linewidth=1, alpha=alph/500)
     return fig, ax
 
 def plotRadial(rmax, p, valFn):
