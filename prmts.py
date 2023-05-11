@@ -5,7 +5,7 @@ class params():
     def __init__(self):
         super().__init__()
         self.nSteps = 800 #number of steps of each run
-        self.nEpchs = 10000 #number of epochs
+        self.nEpchs = 5000 #number of epochs
         self.a = 1.0 #radius of semi-circle
         self.nSc = int(0.1*self.nSteps) #number of steps of intrinsic policy
         
@@ -31,8 +31,8 @@ class params():
         self.alpha = 0.9 #learning rate
         self.phiSt = np.pi/8 #reward goes as exp(-\phi/\phiSt)
         self.sigma = 0.1 #radius of region near target within which agent succeeds
-        self.nPtn = 20 #number of division of \phi over which value function is define
-        self.epsilon = 0.15 #constant for epsilon-greedy strategy
+        self.nPtn = 40 #number of division of \phi over which value function is define
+        self.epsilon = 0.8 #constant for epsilon-greedy strategy
         
         # Initial conditions
         self.rInit = np.array([self.a + np.random.uniform(-self.pt, self.pt), 0.0]) #initial location of agent
