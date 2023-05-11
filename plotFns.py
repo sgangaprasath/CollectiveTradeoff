@@ -304,7 +304,130 @@ def plotRadial(rmax, p, valFn):
     ax.plot(phiPlt, R, color="C1", zorder=250, linewidth=1, alpha=1.)
     
     return fig, ax
-    
+
+def plotDefMul(p, xphm, yphm, phm):
+    global colors
+    mpl.rcParams.update(mpl.rcParamsDefault)
+    plt.rc("font", family="Helvetica Neue")
+    plt.rc("xtick", labelsize="medium")
+    linewidth = 1.2
+    linestyle = "-"
+    label_size = 15
+    color = '#EE3984'
+    lcolor = '#FFC708'
+
+    fig, ax = plt.subplots(1,2,figsize=(8,4), gridspec_kw={'width_ratios': [1, 1]}, dpi=150)
+    ax[0].contourf(xphm, yphm, phm.c, cmap='Purples')
+    thetPlt = np.linspace(0., np.pi, 200)
+    ax[0].plot(p.a*np.cos(thetPlt), p.a*np.sin(thetPlt), c='white', zorder=1)
+
+    ax[0].set_xlabel(r'$x$',usetex=True, fontsize=label_size)
+    ax[0].set_ylabel(r'$y$',usetex=True,rotation=0, fontsize=label_size)
+    ax[0].xaxis.set_label_coords(0.5,-0.1)
+    ax[0].yaxis.set_label_coords(-0.15,0.4)
+    ax[0].set_aspect(1)
+    ax[0].set_ylim([-0.5,1.5])
+    ax[0].set_xlim([-1.5,1.5])
+
+
+    ax[1].set_xlabel(r'$t$',usetex=True, fontsize=label_size)
+    ax[1].set_ylabel(r'$R(t)$',usetex=True,rotation=0, fontsize=label_size)
+    ax[1].set_xlim([0., 10.])
+    ax[1].set_ylim([0.,5.0])
+
+    ax[1].xaxis.set_label_coords(0.5,-0.15)
+    ax[1].yaxis.set_label_coords(-0.1,0.4)
+
+    ax[1].spines["right"].set_visible(False)
+    ax[1].spines["top"].set_visible(False)
+    ax[1].spines["left"].set_position(("data", 0))
+    ax[1].spines["bottom"].set_position(("data", 0))
+    ax[1].set_aspect(1)
+
+    return fig, ax
+
+def plotMultAgt(fig, ax, p, rxFull, ryFull, phxFull, phyFull, alph):
+    # Plot data
+    color = '#EE3984'
+    lcolor = '#FFC708'
+    acolor = '#7A7A7A'
+    ax[0].scatter(rxFull, ryFull,
+            s=10,
+            color=color,
+            edgecolors='k',
+            linewidth=0.5,
+            alpha=alph,
+            zorder=2)
+    ax[0].quiver(rxFull, ryFull,
+           phxFull, phyFull,
+           scale_units='xy',
+           color=acolor,
+           scale=10.2)
+    return fig, ax
+
+def plotVidFn(p, xphm, yphm, phm, rxFull, ryFull, phxFull, phyFull):
+        mpl.rcParams.update(mpl.rcParamsDefault)
+        plt.rc("font", family="Helvetica Neue")
+        plt.rc("xtick", labelsize="medium")
+        linewidth = 1.2
+        linestyle = "-"
+        label_size = 15
+        color = '#EE3984'
+        lcolor = '#FFC708'
+        acolor = '#7A7A7A'
+
+        t = np.arange(np.size(rxFull))*p.dt
+        rwdFull = np.zeros(np.size(rxFull))
+        fInd = 0
+        for ind in np.arange(0,np.size(rxFull),10):
+        # for ind in range(10):
+                fig, ax = plt.subplots(1,2,figsize=(9,9), gridspec_kw={'width_ratios': [1, 1]}, dpi=150)
+                ax[0].contourf(xphm, yphm, phm.c, cmap='Purples')
+                thetPlt = np.linspace(0., np.pi, 200)
+                ax[0].plot(p.a*np.cos(thetPlt), p.a*np.sin(thetPlt), c='white', zorder=1)
+                ax[0].scatter(rxFull[ind], ryFull[ind],
+                        s=30,
+                        color=color,
+                        edgecolors='k',
+                        linewidth=0.5,
+                        alpha=1,
+                        zorder=2)
+                ax[0].quiver(rxFull[ind], ryFull[ind],
+                        phxFull[ind], phyFull[ind],
+                        scale_units='xy',
+                        color=acolor,
+                        scale=10.2)
+                ax[0].set_xlabel(r'$x$',usetex=True, fontsize=label_size)
+                ax[0].set_ylabel(r'$y$',usetex=True,rotation=0, fontsize=label_size)
+                ax[0].xaxis.set_label_coords(0.5,-0.05)
+                ax[0].yaxis.set_label_coords(-0.1,0.5)
+                ax[0].set_aspect(1)
+                ax[0].set_ylim([-0.5,1.5])
+                ax[0].set_xticks([])
+                ax[0].set_yticks([])
+
+                
+                ax[1].plot(t[0:ind], rwdFull[0:ind], color = lcolor)
+                ax[1].plot(t[ind], rwdFull[ind], 'o', color = lcolor)
+                
+                ax[1].set_xlabel(r'$t$',usetex=True, fontsize=label_size)
+                ax[1].set_ylabel(r'$R(t)$',usetex=True,rotation=0, fontsize=label_size)
+                ax[1].set_ylim([0., 1.0])
+                ax[1].set_xlim([0., np.max(t)])
+
+                ax[1].xaxis.set_label_coords(0.5,-0.15)
+                ax[1].yaxis.set_label_coords(-0.15,0.5)
+
+                ax[1].spines["right"].set_visible(False)
+                ax[1].spines["top"].set_visible(False)
+                ax[1].spines["left"].set_position(("data", 0))
+                ax[1].spines["bottom"].set_position(("data", 0))
+                ax[1].set_aspect(np.max(t)*0.7)
+                plt.tight_layout()
+                plt.savefig("Inter"+str(fInd)+".png")
+                plt.close()
+                fInd += 1
+        return
     
 # Plot function
 # def plotDef(rmax):

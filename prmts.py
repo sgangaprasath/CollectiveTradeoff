@@ -15,7 +15,7 @@ class params():
         self.kP = 0.1 #rate of pheromone generation
         
         # Agent dynamics parameters
-        self.pt = 0.05 #initial pheromone trail half-thickness
+        self.pt = 0.04 #initial pheromone trail half-thickness
         self.sz = 0.02 #agent size (radius)
         self.dt = 1e-2 #time-step size
         self.l = 5e-3 #length travelled in 1 time-step
