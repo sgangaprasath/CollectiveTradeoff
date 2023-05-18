@@ -10,7 +10,7 @@ class params():
         self.nSc = int(0.1*self.nSteps) #number of steps of intrinsic policy
         
         # Pheromone parameters
-        self.nMsh = 500 #number of points in 
+        self.nMsh = 500 #number of points in
         self.kM = 1 #rate of pheromone decay
         self.kP = 0.1 #rate of pheromone generation
         
@@ -32,7 +32,7 @@ class params():
         self.phiSt = np.pi/8 #reward goes as exp(-\phi/\phiSt)
         self.sigma = 0.1 #radius of region near target within which agent succeeds
         self.nPtn = 40 #number of division of \phi over which value function is define
-        self.epsilon = 0.8 #constant for epsilon-greedy strategy
+        self.epsilon = 0.9 #constant for epsilon-greedy strategy
         
         # Initial conditions
         self.rInit = np.array([self.a + np.random.uniform(-self.pt, self.pt), 0.0]) #initial location of agent

@@ -379,7 +379,7 @@ def plotVidFn(p, xphm, yphm, phm, rxFull, ryFull, phxFull, phyFull):
         t = np.arange(np.size(rxFull))*p.dt
         rwdFull = np.zeros(np.size(rxFull))
         fInd = 0
-        for ind in np.arange(0,np.size(rxFull),10):
+        for ind in np.arange(0,rxFull.shape[0],2):
         # for ind in range(10):
                 fig, ax = plt.subplots(1,2,figsize=(9,9), gridspec_kw={'width_ratios': [1, 1]}, dpi=150)
                 ax[0].contourf(xphm, yphm, phm.c, cmap='Purples')
@@ -424,7 +424,7 @@ def plotVidFn(p, xphm, yphm, phm, rxFull, ryFull, phxFull, phyFull):
                 ax[1].spines["bottom"].set_position(("data", 0))
                 ax[1].set_aspect(np.max(t)*0.7)
                 plt.tight_layout()
-                plt.savefig("Inter"+str(fInd)+".png")
+                plt.savefig("Multi"+str(fInd)+".png")
                 plt.close()
                 fInd += 1
         return
