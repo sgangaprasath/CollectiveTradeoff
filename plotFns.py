@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as path_effects
+import matplotlib.pylab as pl
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 def plotDef(rmax, p, xphm, yphm, phm):
     global colors
@@ -35,13 +37,13 @@ def plotDef(rmax, p, xphm, yphm, phm):
     ax[1].set_ylim([0.,5.0])
 
     ax[1].xaxis.set_label_coords(0.5,-0.15)
-    ax[1].yaxis.set_label_coords(-0.1,0.4)
+    ax[1].yaxis.set_label_coords(-0.15,0.4)
 
     ax[1].spines["right"].set_visible(False)
     ax[1].spines["top"].set_visible(False)
     ax[1].spines["left"].set_position(("data", 0))
     ax[1].spines["bottom"].set_position(("data", 0))
-    ax[1].set_aspect(2)
+    ax[1].set_aspect(1.3)
 
     ax[2] = plt.subplot(133, projection='polar')
     ax[2].set_thetalim(0, np.pi)
@@ -147,7 +149,9 @@ def plotDat(fig, ax, p, rxFull, ryFull, phxFull, phyFull, rwdFull, valFn, alph):
     # Plot data
     color = '#EE3984'
     lcolor = '#FFC708'
-    global colors
+    colors = pl.cm.Spectral(np.linspace(0,1,p.nPtn))
+    rcInd = int(p.nSc*p.l*p.nPtn/(np.pi*p.a))
+    # global colors
     ax[0].scatter(rxFull, ryFull,
             s=15,
             color=color,
@@ -160,7 +164,8 @@ def plotDat(fig, ax, p, rxFull, ryFull, phxFull, phyFull, rwdFull, valFn, alph):
     ax[1].plot(t, rwdFull,
             #    alpha=0.1,
                alpha=alph/10,
-               color=lcolor)
+               color=colors[rcInd])
+            #    color=lcolor)
 
     n = 2*p.nPtn + 1
     phiPlt = np.linspace(0, np.pi, n)
@@ -181,6 +186,8 @@ def plotDat(fig, ax, p, rxFull, ryFull, phxFull, phyFull, rwdFull, valFn, alph):
     ax[2].fill(phiPlt, R, color="C1", zorder=150, alpha=alph/500)
     ax[2].plot(phiPlt, R, color="white", zorder=200, linewidth=1.5, alpha=alph/500)
     ax[2].plot(phiPlt, R, color="C1", zorder=250, linewidth=1, alpha=alph/500)
+    
+    plt.tight_layout()
     return fig, ax
 
 def plotRadial(rmax, p, valFn):
