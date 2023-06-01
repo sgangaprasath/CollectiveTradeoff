@@ -9,6 +9,7 @@
 /LaTeX/*.gz
 /LaTeX/*.fdb_latexmk
 /.DS_Store
+.DS_Store
 /LaTeX/.DS_Store
 .ipynb_checkpoints
 /__pycache__/*
