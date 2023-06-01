@@ -369,7 +369,8 @@ def plotMultAgt(fig, ax, p, rxFull, ryFull, phxFull, phyFull, alph):
            phxFull, phyFull,
            scale_units='xy',
            color=acolor,
-           scale=10.2)
+        #    scale=10.2)
+           scale=20.2)
     return fig, ax
 
 def plotVidFn(p, xphm, yphm, phm, rxFull, ryFull, phxFull, phyFull):
@@ -393,7 +394,7 @@ def plotVidFn(p, xphm, yphm, phm, rxFull, ryFull, phxFull, phyFull):
                 thetPlt = np.linspace(0., np.pi, 200)
                 ax[0].plot(p.a*np.cos(thetPlt), p.a*np.sin(thetPlt), c='white', zorder=1)
                 ax[0].scatter(rxFull[ind], ryFull[ind],
-                        s=30,
+                        s=10,
                         color=color,
                         edgecolors='k',
                         linewidth=0.5,
@@ -403,7 +404,7 @@ def plotVidFn(p, xphm, yphm, phm, rxFull, ryFull, phxFull, phyFull):
                         phxFull[ind], phyFull[ind],
                         scale_units='xy',
                         color=acolor,
-                        scale=10.2)
+                        scale=20.2)
                 ax[0].set_xlabel(r'$x$',usetex=True, fontsize=label_size)
                 ax[0].set_ylabel(r'$y$',usetex=True,rotation=0, fontsize=label_size)
                 ax[0].xaxis.set_label_coords(0.5,-0.05)
