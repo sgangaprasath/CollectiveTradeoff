@@ -4,12 +4,11 @@ import scipy as sp
 class params():
     def __init__(self) -> None:
         super().__init__()
-        self.nSteps = 900 #number of steps of each run
+        self.nSteps = 1500 #number of steps of each run
         self.nAgnts = 10 #number of agents
         self.nForag = 1 #number of foragers
         # self.nEpchs = 250 #number of epochs
         self.a = 1.0 #radius of semi-circle
-        self.nIntSteps = int(0.5*self.nSteps) #number of steps of intrinsic policy
         self.nSc = int(0.1*self.nSteps) #number of steps of intrinsic policy
         
         # Pheromone parameters
@@ -26,19 +25,20 @@ class params():
         self.nu = 50 #orientation relaxation rate (s^-1)
         self.diff = 50e-1 #noise diffusion coefficient (s^-1)
         self.diffCst = 50 #noise diffusion coefficient (s^-1)
-        # self.pe = self.diff/self.nu #peclet number
         
-        # Reward parameters
+        # Reward/Learning parameters
+        self.alpha = 0.7 #learning rate
         self.phiSt = np.pi/8 #reward goes as exp(-\phi/\phiSt)
         self.sigma = 0.1 #radius of region near target within which agent succeeds
         self.nPtn = 40 #number of division of \phi over which value function is define
+        self.epsilon = 0.9 #constant for epsilon-greedy strategy
         
-        # Initial conditions
+        # Initial conditions for workers
         phiInit = np.random.uniform(0, np.pi, self.nAgnts)
         self.rInit = self.a*np.array([np.cos(phiInit), np.sin(phiInit)])
         self.tgt = np.array([-self.a, 0.0]) #target location of agent
         self.strt = np.array([self.a, 0.0]) #initial location of agent
         self.thetInit = np.random.uniform(0, 2*np.pi, self.nAgnts)
-
+        # Initial conditions for foragers
         self.rFgInit = self.strt
         self.thetFgInit = np.pi*0.5
