@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     92746,       1926]
-NotebookOptionsPosition[     89061,       1856]
-NotebookOutlinePosition[     89456,       1872]
-CellTagsIndexPosition[     89413,       1869]
+NotebookDataLength[     94263,       1971]
+NotebookOptionsPosition[     90354,       1897]
+NotebookOutlinePosition[     90746,       1913]
+CellTagsIndexPosition[     90703,       1910]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1851,12 +1851,53 @@ Cell[BoxData[
      FractionBox["s", "\[Phi]s"]}]], " ", "\[Phi]s"}]}]], "Output",
  CellChangeTimes->{{3.892773803349389*^9, 3.892773822377503*^9}},
  CellLabel->"Out[35]=",ExpressionUUID->"621c3f96-1e9f-4787-bd63-653f9a1843bb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DSolve", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"x", "'"}], "[", "t", "]"}], "==", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "2"}], " ", "\[Alpha]", " ", 
+        RowBox[{"x", "[", "t", "]"}]}], " ", "+", " ", 
+       RowBox[{"2", "d"}]}]}], ",", " ", 
+     RowBox[{
+      RowBox[{"x", "[", "0", "]"}], "==", "0"}]}], "}"}], ",", 
+   RowBox[{"x", "[", "t", "]"}], ",", "t"}], "]"}]], "Input",
+ CellChangeTimes->{{3.895619467052116*^9, 3.895619509318099*^9}},
+ CellLabel->"In[79]:=",ExpressionUUID->"5e9fb9de-6b0a-4b1d-874c-773fe1437180"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"x", "[", "t", "]"}], "\[Rule]", 
+    FractionBox[
+     RowBox[{"d", " ", 
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{
+        RowBox[{"-", "2"}], " ", "t", " ", "\[Alpha]"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "1"}], "+", 
+        SuperscriptBox["\[ExponentialE]", 
+         RowBox[{"2", " ", "t", " ", "\[Alpha]"}]]}], ")"}]}], "\[Alpha]"]}], 
+   "}"}], "}"}]], "Output",
+ CellChangeTimes->{{3.895619493860609*^9, 3.895619511835174*^9}},
+ CellLabel->"Out[79]=",ExpressionUUID->"8dfc6497-6d5f-41c1-ad44-c22fa86a6fcf"]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{934, 1027},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+FrontEndVersion->"13.1 for Mac OS X ARM (64-bit) (June 16, 2022)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"5347499f-7c3d-419e-8221-dd83f81554a8"
 ]
@@ -1925,7 +1966,11 @@ Cell[88151, 1827, 151, 2, 34, "Output",ExpressionUUID->"7c033fd0-c455-43d0-9a53-
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[88339, 1834, 372, 9, 30, "Input",ExpressionUUID->"eb396561-7ad7-46b2-b743-203cc471b1cf"],
-Cell[88714, 1845, 319, 7, 66, "Output",ExpressionUUID->"621c3f96-1e9f-4787-bd63-653f9a1843bb"]
+Cell[88714, 1845, 319, 7, 43, "Output",ExpressionUUID->"621c3f96-1e9f-4787-bd63-653f9a1843bb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89070, 1857, 624, 17, 30, "Input",ExpressionUUID->"5e9fb9de-6b0a-4b1d-874c-773fe1437180"],
+Cell[89697, 1876, 629, 17, 103, "Output",ExpressionUUID->"8dfc6497-6d5f-41c1-ad44-c22fa86a6fcf"]
 }, Open  ]]
 }, Open  ]]
 }

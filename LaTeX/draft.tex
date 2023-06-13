@@ -343,7 +343,8 @@ its dynamics which provides the probability of a given state $\theta(t)$ i.e. $p
 The dynamics of the angle relaxes to equilibrium angle $\theta = 0$ in the absence of fluctuations.
 The evolution of the mean is $\dot{h}(t) = - \alpha h(t)$ where $h(t) = \E [ \theta(t) ]$
 while the co-variance dynamics is given by $\dot{\zeta}(t) = -2\alpha \zeta(t) + 2D$ with
-$\zeta = \E [  {(\theta(t) - h(t))}^2 ] = \E [  \theta^2(t) ] - h{(t)}^2$.
+$\zeta = \E [  {(\theta(t) - h(t))}^2 ] = \E [  \theta^2(t) ] - h{(t)}^2$. We can solve this to get
+the time-evolution of the co-variance as $\zeta(t) = D/\alpha(1-\e^{-2\alpha t})$.
 
 The position of the agent evolves as $\dot{\r}(t) = v_o \ph(t)$. Under the assumption that the angle
 is small, we can write $\dot{\r}(t) = v_o (1, \theta)$. Thus we have $\yd (t) = v_o \theta$ which can
@@ -351,7 +352,7 @@ be used to rewrite the orientation equation as
 \begin{align}
     \ddot{y}(t) =& \ - \alpha \yd (t) + v_o\sqrt{2 D} \eta(t).
 \end{align}
-This second order equation needs to boundary condition. We require $y(0) = 0$ and $\yd (0) = 0$ which
+This second order equation needs two boundary condition. We require $y(0) = 0$ and $\yd (0) = 0$ which
 comes from setting the initial orientation to be 0. We are interested in the evolution of the mean and
 the variance of this SDE. Let $m(t)= \E [  y(t) ]$ where the averaging is the ensemble average
 (equivalently the average of the several trajectories of the same dynamics). The mean $m(t)$ evolves as
