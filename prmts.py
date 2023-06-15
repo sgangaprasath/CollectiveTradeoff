@@ -4,13 +4,13 @@ import scipy as sp
 class params():
     def __init__(self):
         super().__init__()
-        self.nSteps = 800 #number of steps of each run
+        self.nSteps = 1000 #number of steps of each run
         self.nEpchs = 10000 #number of epochs
         self.a = 1.0 #radius of semi-circle
-        self.nSc = int(0.1*self.nSteps) #number of steps of intrinsic policy
+        self.nSc = int(0.3*self.nSteps) #number of steps of intrinsic policy
         
         # Pheromone parameters
-        self.nMsh = 500 #number of points in
+        self.nMsh = 500 #number of points in grid
         self.kM = 1 #rate of pheromone decay
         self.kP = 0.1 #rate of pheromone generation
         

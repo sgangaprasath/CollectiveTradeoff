@@ -163,7 +163,7 @@ when following the policy $\pi_{\rm int}(\r)$. This can be written as
 \[
     v_{\rm int}(\r) = \E_\pi \bigg[ \sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| \r_t = \r \bigg].
 \]
-We can write this in path-integral form as (with $\gamma = 1$)
+We can write this in path-integral form as (with $\gamma \approx 1$)
 \begin{align}
     v_{\rm int}(\r) =& \ \sum_{k=t}^T \int \D[\theta(s)] \P[\theta(s)] \gamma^{k-t} R_{k+1}, \\
     \approx& \ \int_{s}^{s_c} \int \D[\theta(s)] \P[\theta(s)] R(s) \ \d s
@@ -212,15 +212,17 @@ the non-dimensional variance, $\psi(s)$ (after setting $\psi(s_c) =0$) as a func
     \psi(s)& = \Pe \bigg[ 2 (s-s_c) - \e^{-2 (s-s_c)} + 4 \e^{-(s-s_c)} - 3 \bigg].
 \end{align}
 The non-dimensional Langevin dynamics that results in this evolution of the variance is $\d \varphi/\d s = - \varphi + \sqrt{2 \Pe} \eta(s)$.
-As already mentioned, the agent reaching a distance $\sigma$ (appropriately non-dimensionalized with $l_\nu$) along $\ebh_\perp$ from the end-point A
-can reach the target, then the probability that an agent will reach the target is given by $\P(||r_\perp^{s^*} - r^*|| \leq \sigma)
-= \sigma/\psi(s^*)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ as
+As already mentioned, the agent reaching a distance $\sigma$ (appropriately non-dimensionalized with $l_\nu$) from the end-point A
+can reach the target, then the probability that an agent will reach the target is given by $\P(||\r(s) - \r^*|| \leq \sigma)
+= 2\int_0^\sigma \mu \sqrt{\sigma^2-\zeta^2} \ \d \zeta/\psi(s^*-\zeta)$. We can now calculate the value function, $v_{\rm OU}(\r, \theta)$ as
 \[
     v_{\rm OU}(\r) = \int_{s_c}^{s^*} \int \D[\theta(s)] \P_{\rm OU}[\theta(s)] R(s) \ \d s.
 \]
-The reward function for the OU process takes a simple form $R(s) = \mu[1 - \Theta(||r_\perp(s^*) - r^*|| - \sigma)]$,
+% The reward function for the OU process takes a simple form $R(s) = \mu[1 - \Theta(||r_\perp(s^*) - r^*|| - \sigma)]$,
+The reward function for the OU process takes a simple form $R(s) = \mu[1 - \Theta(||\r(s^*) - \r^*||^2 - \sigma^2)]$,
 which simply means that the agent reaching within a distance $\sigma$ gets a reward $\mu$.
 From this we see that the value function from $\r$ to the end of the trajectory, $v_{\rm OU}(\r^c) = \sigma \mu/\psi(s^*)$.
+Mention the limits of $\sigma$ set by the criteria that $\psi(s) > 0$.
 
 \section*{Value function of combined policy}
 The total value function for the agent's policy is simply $v(\r, \theta) = v_{\rm int}(\r, \theta) + v_{\rm OU}(\r^c, \theta^c)$.
