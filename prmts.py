@@ -5,9 +5,9 @@ class params():
     def __init__(self):
         super().__init__()
         self.nSteps = 1000 #number of steps of each run
-        self.nEpchs = 10000 #number of epochs
+        self.nEpchs = 5000 #number of epochs
         self.a = 1.0 #radius of semi-circle
-        self.nSc = int(0.3*self.nSteps) #number of steps of intrinsic policy
+        self.nSc = int(0.05*self.nSteps) #number of steps of intrinsic policy
         
         # Pheromone parameters
         self.nMsh = 500 #number of points in grid
@@ -23,7 +23,7 @@ class params():
         self.nu = 50 #orientation relaxation rate (s^-1)
         # self.diff = 50e-1 #noise diffusion coefficient (s^-1)
         # self.diff = 10/(self.nSc*self.l) #noise diffusion coefficient (s^-1)
-        self.diffCst = 50 #noise diffusion coefficient (s^-1)
+        self.diffCst = 5. #noise diffusion coefficient (s^-1)
         self.diff = self.diffCst #dynamic diffusion coefficient (s^-1)
         self.pe = self.diff/self.nu #peclet number
         
