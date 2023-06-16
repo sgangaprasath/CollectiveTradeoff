@@ -5,7 +5,7 @@ class params():
     def __init__(self):
         super().__init__()
         self.nSteps = 1000 #number of steps of each run
-        self.nEpchs = 5000 #number of epochs
+        self.nEpchs = 8000 #number of epochs
         self.a = 1.0 #radius of semi-circle
         self.nSc = int(0.05*self.nSteps) #number of steps of intrinsic policy
         
@@ -20,10 +20,10 @@ class params():
         self.dt = 1e-2 #time-step size
         self.l = 5e-3 #length travelled in 1 time-step
         self.vo = self.l/self.dt #effective speed of motion
-        self.nu = 50 #orientation relaxation rate (s^-1)
+        self.nu = 10 #orientation relaxation rate (s^-1)
         # self.diff = 50e-1 #noise diffusion coefficient (s^-1)
         # self.diff = 10/(self.nSc*self.l) #noise diffusion coefficient (s^-1)
-        self.diffCst = 5. #noise diffusion coefficient (s^-1)
+        self.diffCst = 0.1 #noise diffusion coefficient (s^-1)
         self.diff = self.diffCst #dynamic diffusion coefficient (s^-1)
         self.pe = self.diff/self.nu #peclet number
         

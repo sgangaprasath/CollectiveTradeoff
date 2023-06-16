@@ -164,8 +164,8 @@ def plotDat(fig, ax, p, rxFull, ryFull, phxFull, phyFull, rwdFull, valFn, alph):
     ax[1].plot(t, rwdFull,
             #    alpha=0.1,
                alpha=alph/10,
-               color=colors[rcInd])
-            #    color=lcolor)
+            #    color=colors[rcInd])
+               color=lcolor)
 
     n = 2*p.nPtn + 1
     phiPlt = np.linspace(0, np.pi, n)
