@@ -4,7 +4,8 @@ import scipy as sp
 class params():
     def __init__(self):
         super().__init__()
-        self.nSteps = 1000 #number of steps of each run
+        # self.nSteps = 1000 #number of steps of each run
+        self.nSteps = 200 #number of steps of each run
         self.nEpchs = 8000 #number of epochs
         self.a = 1.0 #radius of semi-circle
         self.nSc = int(0.05*self.nSteps) #number of steps of intrinsic policy
