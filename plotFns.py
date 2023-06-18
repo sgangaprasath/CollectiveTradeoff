@@ -159,6 +159,12 @@ def plotDat(fig, ax, p, rxFull, ryFull, phxFull, phyFull, rwdFull, valFn, alph):
             linewidth=0.5,
             alpha=alph/500,
             zorder=2)
+    ax[0].scatter(p.tgtOU[0], p.tgtOU[1],
+            s=10,
+            color='white',
+            edgecolor='k',
+            linewidth=0.5,
+            alpha=1)
     
     t = np.arange(np.size(rwdFull))*p.dt
     ax[1].plot(t, rwdFull,
