@@ -6,7 +6,7 @@ class params():
         super().__init__()
         # self.nSteps = 1000 #number of steps of each run
         self.nSteps = 1000 #number of steps of each run
-        self.nEpchs = 8000 #number of epochs
+        self.nEpchs = 10000 #number of epochs
         self.a = 1.0 #radius of semi-circle
         self.nSc = int(0.1*self.nSteps) #number of steps of intrinsic policy
         
@@ -21,17 +21,17 @@ class params():
         self.dt = 1e-2 #time-step size
         self.l = 5e-3 #length travelled in 1 time-step
         self.vo = self.l/self.dt #effective speed of motion
-        self.nu = 10. #orientation relaxation rate (s^-1)
+        self.nu = 0.5 #orientation relaxation rate (s^-1)
         # self.diff = 50e-1 #noise diffusion coefficient (s^-1)
         # self.diff = 10/(self.nSc*self.l) #noise diffusion coefficient (s^-1)
-        self.diffCst = 1. #noise diffusion coefficient (s^-1)
+        self.diffCst = 0.1 #noise diffusion coefficient (s^-1)
         self.diff = self.diffCst #dynamic diffusion coefficient (s^-1)
         self.pe = self.diff/self.nu #peclet number
         
         # Reward/Learning parameters
         self.alpha = 0.7 #learning rate
-        self.phiSt = np.pi/2 #reward goes as exp(-\phi/\phiSt)
-        self.sigma = 0.1 #radius of region near target within which agent succeeds
+        self.phiSt = np.pi/8 #reward goes as exp(-\phi/\phiSt)
+        self.sigma = 0.3 #radius of region near target within which agent succeeds
         self.nPtn = 40 #number of division of \phi over which value function is define
         self.epsilon = 0.9 #constant for epsilon-greedy strategy
         
