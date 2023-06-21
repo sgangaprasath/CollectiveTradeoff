@@ -22,11 +22,11 @@ class params():
         self.l = 5e-3 #length travelled in 1 time-step
         self.vo = self.l/self.dt #effective speed of motion
         self.nu = 0.5 #orientation relaxation rate (s^-1)
-        # self.diff = 50e-1 #noise diffusion coefficient (s^-1)
         # self.diff = 10/(self.nSc*self.l) #noise diffusion coefficient (s^-1)
         self.diffCst = 0.1 #noise diffusion coefficient (s^-1)
         self.diff = self.diffCst #dynamic diffusion coefficient (s^-1)
         self.pe = self.diff/self.nu #peclet number
+        self.lNu = self.vo/self.nu #length-scale used for non-dimensionalization (s)
         
         # Reward/Learning parameters
         self.alpha = 0.7 #learning rate
