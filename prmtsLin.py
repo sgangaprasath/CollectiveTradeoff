@@ -21,9 +21,9 @@ class params():
         self.dt = 1e-2 #time-step size
         self.l = 5e-3 #length travelled in 1 time-step
         self.vo = self.l/self.dt #effective speed of motion
-        self.nu = 50 #orientation relaxation rate (s^-1)
+        self.nu = 0.5 #orientation relaxation rate (s^-1)
         # self.diff = 10/(self.nSc*self.l) #noise diffusion coefficient (s^-1)
-        self.diffCst = 10 #noise diffusion coefficient (s^-1)
+        self.diffCst = 0.1 #noise diffusion coefficient (s^-1)
         self.diff = self.diffCst #dynamic diffusion coefficient (s^-1)
         self.pe = self.diff/self.nu #peclet number
         self.lNu = self.vo/self.nu #length-scale used for non-dimensionalization (s)
@@ -31,7 +31,7 @@ class params():
         # Reward/Learning parameters
         self.alpha = 0.7 #learning rate
         self.phiSt = np.pi/8 #reward goes as exp(-\phi/\phiSt)
-        self.sigma = 0.1 #radius of region near target within which agent succeeds
+        self.sigma = 0.3 #radius of region near target within which agent succeeds
         self.nPtn = 40 #number of division of \phi over which value function is define
         self.epsilon = 0.9 #constant for epsilon-greedy strategy
         
