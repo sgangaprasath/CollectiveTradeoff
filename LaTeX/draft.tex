@@ -120,7 +120,21 @@ which in this case is the concentration of pheromone, $c(\x)$.
 \begin{figure*}
     \centering
     \includegraphics[width=\textwidth]{./figs/fig1.pdf}\label{fig:schm1}
-    \caption{Schematic of setup}
+    \caption{$(a)$ Schematic of an agent described by its position $\r(t)$ and orientation $\ph (t)$
+    in an environment with pheromone already laid out at location $\x^*(s)$. Here $t$ is the time and
+    $s$ the arc-length along the trail with $\th(s)$ being the local tangent vector along the pheromone trail.
+    $(b)$ An agent traversing a familiar semi-circular pheromone trail (of radius $a$) from home at B to food source
+    at A. The task of the agent is to innovate from this semi-circular trail given uncertainities in its
+    memory of the target food source at A. $(c)$ The strategy used by the agent is split into two behaviors
+    represented as policies: $(i)$ intrinsic behavior to follow the already laid trail, $\pi_{\rm int} (\r, \phi)$;
+    $(ii)$ exploratory behaviour captured by an Ornstein-Uhlenbeck process in orientaiton, $\pi_{\rm OU}(\r, \phi^*; D)$.
+    $(d)$ Evolution of the value function, $v(s_c)$ learnt by the agent with epochs (details in SI.XXX) where $s_c$ is the
+    critical length at which innovation takes place. $(e)$ Evolution of the reward, $R(s)$ aquired by the agent 
+    after learning the value function. Sharp jumps in the magnitude are when the agent has reached the
+    target successfully. $(f)$ Comparison between theoretically calculated value function, $v(s_c)$ with
+    learnt value function by the agent for different values of non-dimensional numbers (see text for details),
+    the Peclet number, $\Pe$ and curvature, $\kappa$.
+    }
 \end{figure*}
 
 \subsection*{Trail following behavior for semi-circular trail}
